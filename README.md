@@ -1,9 +1,8 @@
-# MATLAB Spring 2014 – Research Plan (Template)
-(text between brackets to be removed)
+# MATLAB Spring 2014 – Research Plan 
 
 > * Group Name: human_bees
 > * Group participants names: Schroeter Julien, Slusarczyk Martin, Vaucher Alain
-> * Project Title: (can be changed)
+> * Project Title: Human Bees
 
 ## General Introduction
 
