@@ -2,7 +2,7 @@
 (text between brackets to be removed)
 
 > * Group Name: human_bees
-> * Group participants names: (alphabetically sorted by last name)
+> * Group participants names: Schroeter Julien, Slusarczyk Martin, Vaucher Alain
 > * Project Title: (can be changed)
 
 ## General Introduction
