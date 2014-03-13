@@ -6,11 +6,11 @@
 
 ## General Introduction
 
-Emergence of labor division
+Division of labor is an important aspect of society. It has been shown that even insect societies feature division of labor. It is therefore interesting to investigate the factors leading to this phenomenon. Moreover, a simple dynamic system can be used to gain insights which can be used to understand better the human society.
 
-(States your motivation clearly: why is it important / interesting to solve this problem?)
-(Add real-world examples, if any)
-(Put the problem into a historical context, from what does it originate? Are there already some proposed solutions?)
+Theraulaz et al. have successfully developed a model describing the emergence of division of labor in insect societies. However their system is still very oversimplified. For instance they have studied systems exhibiting two tasks only. They do account that skills are developped in time, but they used fix population sizes, ignored aging, considered an isolated system without external disturbances and did not account for personal preferences.
+It would therefore be interesting to explore further developments of their model.
+
 
 ## The Model
 
