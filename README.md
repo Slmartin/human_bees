@@ -6,6 +6,8 @@
 
 ## General Introduction
 
+Emergence of labor division
+
 (States your motivation clearly: why is it important / interesting to solve this problem?)
 (Add real-world examples, if any)
 (Put the problem into a historical context, from what does it originate? Are there already some proposed solutions?)
@@ -27,25 +29,28 @@ We would like to study the dynamics of the model described above as well as the 
 - How does the system change when aging is introduced? Under which circumstances does the colony thrive respectively gets extinguished?
 - How does the system behave upon temporary or definitive removal of a) random workers, b) young workers, c) workers fulfilling the same task?
 - Is this model appropriate to explain a concept such as welfare?
+- Can our model reproduce inegal wealth (money) distribution of the real world?
 
 
 ## Expected Results
 
-(What are the answers to the above questions that you expect to find before starting your research?)
+Using our modified model, we still expect to reproduce the observation of labor division among bees. Upon application a disturbance, it is expected that the system reaches another equilibrium with a smaller welfare.
+Without external constraints such as resource limit, it is expected that the population will increase indefinitely. 
 
 
 ## References 
 
-(Add the bibliographic references you intend to use)
-(Explain possible extension to the above models)
-(Code / Projects Reports of the previous year)
+Theraulaz, G., Bonabeau, E., Deneubourg, J.-L., Proc. R. Soc. Lond. B 265, 1998, 327-332.
+Bonabeau, E., Theraulaz, G., Deneubourg, J.-L., Proc. R. Soc. Lond. B 263, 1996, 1565-1569.
+Zoethout, K., Jager, W., Molleman, E., Simulation Modelling Practice and Theory 14, 2006, 342-359.
+Penna, T.J.P., J. Stat. Phys. 78, 1995, 1629.
 
 
 ## Research Methods
 
-(Cellular Automata, Agent-Based Model, Continuous Modeling...) (If you are not sure here: 1. Consult your colleagues, 2. ask the teachers, 3. remember that you can change it afterwards)
+Agent-Based Model
 
 
 ## Other
 
-(mention datasets you are going to use)
+No dataset is going to be used.
