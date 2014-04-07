@@ -1,15 +1,7 @@
-function dy = ode(t,y)
-    global M N
-    M
-    N
-    
-end
-
-
 
 %---------------------------------
 % Initialization of the variables
-
+function main
     global N
     N = 5; %Number of bees
     global M 
@@ -28,4 +20,15 @@ end
     dt=1
     
     disp(dt)
-    dy
+    ode(1,1)
+end
+
+
+function dy = ode(t,y)
+    global M N
+    M
+    N
+    
+end
+
+
