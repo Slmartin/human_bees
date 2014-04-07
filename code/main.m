@@ -26,6 +26,22 @@ end
 
 function dy = ode(t,y)
     global M N
+    dy = zeros(2*N*M+M,1);
+    %theta matrix
+    for i=1:M
+        for j=1:N
+            dy((i-1)*N + j, 1) = 0.5
+        end
+    end
+    %x matrix
+    for i=1:M
+        for j=1:N
+            dy(M*N+(i-1)*N + j, 1) = 0.6
+        end
+    end 
+    for i=1:M
+        dy(2*M*N+i) = 0.7
+    end
     M
     N
     
