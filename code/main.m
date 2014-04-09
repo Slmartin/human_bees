@@ -7,17 +7,19 @@ function main
     global M 
     M = 2; %Number of tasks
 
-    x = ones(N,M)*0.1;
     theta = ones(N,M)*500;
+    x = ones(N,M)*0.1; 
     s  = ones(1,M);
 
+    initial_condition = [reshape(theta, N*M,1); reshape(x, N*M,1);reshape(s,M,1)]; %intial condition for the ode_solver
+    
     alpha = 3;
     delta = 1;
     p=0.2;
     zeta=10;
     phi=1;
     sigma=0.1;
-    dt=1
+    dt=1;
     
     disp(dt)
     ode(1,1)
@@ -47,5 +49,5 @@ function dy = ode(t,y)
     
 end
 
-%tests
+
 
