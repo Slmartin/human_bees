@@ -2,7 +2,7 @@
 %---------------------------------
 % Initialization of the variables
 function main
-    global M N phi zeta theta_min theta_max delta alpha p
+    global M N phi zeta theta_min theta_max delta alpha p sigma
 
     N = 5; %Number of bees
     M = 2; %Number of tasks
@@ -12,7 +12,6 @@ function main
     s  = ones(1,M);
 
     initial_condition = [reshape(theta, N*M,1); reshape(x, N*M,1);reshape(s,M,1)]; %intial condition for the ode_solver
-    initial_condition;
     
     alpha = 3;
     delta = 1;
@@ -29,15 +28,15 @@ function main
     
     %plot(T,Y(:,1:M*N),'-o')
     %plot(T,Y(:,13),'-r')
-    plot(T,Y(:,1:22),'-o')
-    %%no difference between the bees; there is still a small(or there are small
-    %%mistakes) to correct!!
+    plot(T,Y(:,1:M*N),'-o')
+    %%we have no gaussian process there all bees behave the same way
+    %%
     %But it work !!!! 
 end
 
 
 function dy = ode_function(t,y)
-    global M N phi zeta theta_min theta_max delta alpha p
+    global M N phi zeta theta_min theta_max delta alpha p sigma
     dy = zeros(2*N*M+M,1);
 
     %theta matrix
@@ -61,7 +60,12 @@ function dy = ode_function(t,y)
             for w=1:M
                 sum = sum+y(M*N+(w-1)*N + i);
             end
-            gaussian_sp = 0;
+            %gaussian_sp = 0;
+            %here is a attempt to get the gaussian centerd process
+            %unfortunately the gaussian random number generator seems to be
+            %to slow!!!
+            gaussian_sp = normrnd(0,sigma);
+            
             dy(M*N+(j-1)*N + i, 1) = [y(M*N*2+j)^2/(y(M*N*2+j)^2+y((j-1)*N + i)^2)]*[1-sum]-p*y(M*N+(j-1)*N + i, 1)+gaussian_sp;
         end
     end 
