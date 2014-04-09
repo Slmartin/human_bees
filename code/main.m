@@ -2,8 +2,8 @@
 %---------------------------------
 % Initialization of the variables
 function main
-    global N N phi zeta theta_min theta_max delta alpha p
-    'start'
+    global M N phi zeta theta_min theta_max delta alpha p
+
     N = 5; %Number of bees
     M = 2; %Number of tasks
 
@@ -12,7 +12,7 @@ function main
     s  = ones(1,M);
 
     initial_condition = [reshape(theta, N*M,1); reshape(x, N*M,1);reshape(s,M,1)]; %intial condition for the ode_solver
-    initial_condition
+    initial_condition;
     
     alpha = 3;
     delta = 1;
@@ -25,15 +25,21 @@ function main
     theta_min=1; 
     theta_max=1000; 
     
- 
-    ode(1,initial_condition)
+    [T,Y]=ode23(@ode_function, [0 3000], initial_condition);
+    
+    %plot(T,Y(:,1:M*N),'-o')
+    %plot(T,Y(:,13),'-r')
+    plot(T,Y(:,1:22),'-o')
+    %%no difference between the bees; there is still a small(or there are small
+    %%mistakes) to correct!!
+    %But it work !!!! 
 end
 
 
-function dy = ode(t,y)
+function dy = ode_function(t,y)
     global M N phi zeta theta_min theta_max delta alpha p
     dy = zeros(2*N*M+M,1);
-    
+
     %theta matrix
     for j=1:M
         for i=1:N
@@ -67,8 +73,6 @@ function dy = ode(t,y)
             dy(2*M*N+j)= dy(2*M*N+j) - alpha/N*y(M*N+(j-1)*N+i);
         end
     end
-
-    dy
     
     
 end
