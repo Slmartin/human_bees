@@ -8,8 +8,8 @@ function main
     M = 2; %Number of tasks
 
     theta = ones(N,M)*500;
-    x = ones(N,M)*0.1; 
-    s  = ones(1,M);
+    x = ones(N,M)*0.1;
+    s = ones(1,M);
 
     initial_condition = [reshape(theta, N*M,1); reshape(x, N*M,1);reshape(s,M,1)]; %intial condition for the ode_solver
     
@@ -21,8 +21,8 @@ function main
     sigma=0.1;
     dt=1;
     
-    theta_min=1; 
-    theta_max=1000; 
+    theta_min=1;
+    theta_max=1000;
     
     %[T,Y]=ode45(@ode_function, [0 3000], initial_condition);
     [T,Y]=euler_method(@ode_function, [0 3000], initial_condition,0.5);
@@ -49,9 +49,8 @@ function main
     subplot(2,2,4)
     plot(T,Y(M*N+2,:),'-')
     axis([0 3000 0 1.1])
-    %%we have no gaussian process there all bees behave the same way
-    %%
-    %But it work !!!! 
+    
+
 end
 
 
@@ -93,9 +92,15 @@ function dy = ode_function(t,y)
   
     %s matrix
     for j=1:M
-        dy(2*M*N+j) = dy(2*M*N+j) + delta;
+        %it makes no sense to have a negative value for the stiumuli
+        sum=0;
         for i=1:N
-            dy(2*M*N+j)= dy(2*M*N+j) - alpha/N*y(M*N+(j-1)*N+i);
+            %it makes no sense to have a negative value for the stiumuli
+            sum = sum + alpha/N*y(M*N+(j-1)*N+i);
+        end
+        
+        if ~((y(2*M*N+j)<=0) && ((delta - sum)<0))
+            dy(2*M*N+j)= dy(2*M*N+j) + delta - sum;
         end
     end
     
