@@ -4,7 +4,7 @@
 function main
     global M N phi zeta theta_min theta_max delta alpha p sigma
 
-    N = 5; %Number of bees
+    N = 10; %Number of bees
     M = 2; %Number of tasks
 
     theta = ones(N,M)*500;
@@ -44,11 +44,18 @@ function main
     plot(T,Y(M*N*2+1:M*N*2+M,:),'-')
     title('s')
     
-    %plot(T,Y(M*N+1,:),'-')
-    %axis([0 3000 0 1.1])
+    %here is a first version of welfare implementation
+    %of course we can use another function to estimate welfare
+
+    welfare = 1 ./ (Y(M*N*2+1,:) + 1);
+    for i=2:M
+        welfare = welfare + 1./ (Y(M*N*2+i,:) + 1);
+    end
+    
     subplot(2,2,4)
-    plot(T,Y(M*N+2,:),'-')
-    axis([0 3000 0 1.1])
+    plot(T,welfare,'-')
+    axis([0 3000 0 2])
+    title('welfare')
     
 
 end
@@ -119,9 +126,9 @@ function [T,Y] = euler_method(fun,time, y0, h)
     y_eul = y0;
     t_eul = time(1);
     
-    n = (time(2)-time(1))/h;
+    number = (time(2)-time(1))/h;
     
-    for j=1:n
+    for j=1:number
         y_eul = y_eul + h*fun(t_eul,y_eul);
         t_eul = t_eul + h ;
         
