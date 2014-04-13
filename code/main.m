@@ -53,15 +53,23 @@ function main
     
     %here is a first version of welfare implementation
     %of course we can use another function to estimate welfare
-
-    welfare = 1 ./ (Y(M*N*2+1,:) + 1);
-    for i=2:M
-        welfare = welfare + 1./ (Y(M*N*2+i,:) + 1);
+    %welfare = 1 ./ (Y(M*N*2+1,:) + 1);
+    %for i=2:M
+    %    welfare = welfare + 1./ (Y(M*N*2+i,:) + 1);
+    %end
+    
+    %with the above welfare, low stimuli drive the welfare to be high, 
+    %while high stimuli don't have much importance
+    %maybe the welfare should rather be determined by the high stimuli:
+    sumstimuli = 0;
+    for i=1:M
+        sumstimuli = sumstimuli + Y(M*N*2+i,:);
     end
+    welfare = exp(-sumstimuli / (M*100));
     
     subplot(2,2,4)
     plot(T,welfare,'-')
-    axis([0 end_time 0 3])
+    axis([0 end_time 0 1])
     title('welfare')
     
 
