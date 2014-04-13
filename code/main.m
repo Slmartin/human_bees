@@ -123,7 +123,7 @@ end
 
 
 function [T,Y] = euler_method(fun,time, y0, h)
-
+    global M N
     T = [];
     Y = [];
     T = [T,time(1)];
@@ -136,6 +136,15 @@ function [T,Y] = euler_method(fun,time, y0, h)
     number = (time(2)-time(1))/h;
     
     for j=1:number
+        if(j==number/2)
+            %theta matrix
+            for k=1:M
+                for i=1:N
+                    y_eul((k-1)*N + i) = 500;
+                    y_eul(N*M + (k-1)*N + i) = 0.1;
+                end
+            end
+        end
         y_eul = y_eul + h*fun(t_eul,y_eul);
         t_eul = t_eul + h ;
         
