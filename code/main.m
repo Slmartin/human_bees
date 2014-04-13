@@ -1,28 +1,27 @@
 
-
 %---------------------------------
 % Initialization of the variables
 function main
     global M N phi zeta theta_min theta_max delta alpha p sigma
     'start'
-    N = 10; %Number of bees
-    M = 5; %Number of tasks
+    N = 10;                     %Number of bees
+    M = 5;                      %Number of tasks
 
-    theta = ones(N,M)*500;
-    x = ones(N,M)*0.1;
-    s = ones(1,M);
+    theta = ones(N,M)*500;      %response treshold
+    x = ones(N,M)*0.1;          %fraction of time spent by individual i on task j
+    s = ones(1,M);              %stimulus intensity for task j
 
     initial_condition = [reshape(theta, N*M,1); reshape(x, N*M,1);reshape(s,M,1)]; %intial condition for the ode_solver
     
-    alpha = M+1;  %This factor has been changed in order to get convergence
-                  %We could also change the delta!
-                  %This change has been made because it doesn't make much sense
-                  %to get an infinitely increasing stimuli for all tasks.
+    alpha = M+1;                %This factor has been changed in order to get convergence
+                                %We could also change the delta!
+                                %This change has been made because it doesn't make much sense
+                                %to get an infinitely increasing stimuli for all tasks.
 
-    delta = 1; 
-    p=0.2;
-    zeta=10;
-    phi=1;
+    delta = 1;                  %describes increase of stimuli
+    p=0.2;                      %Probability individual i gives up performing task j in time interval
+    zeta=10;                    %learning
+    phi=1;                      %forgetting
     sigma=0.1;
     dt=1;
     end_time = 5000;
