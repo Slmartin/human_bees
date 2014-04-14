@@ -1,8 +1,7 @@
-
 %---------------------------------
 % Initialization of the variables
 function main
-    global M N phi zeta theta_min theta_max delta alpha p sigma
+    global M N phi zeta theta_min theta_max delta alpha p sigma beta
     'start'
     N = 10;                     %Number of bees
     M = 5;                      %Number of tasks
@@ -22,7 +21,8 @@ function main
     p=0.2;                      %Probability individual i gives up performing task j in time interval
     zeta=10;                    %learning
     phi=1;                      %forgetting
-    sigma=0.1;
+    sigma=0.1;                  %sigma for gaussian distribution
+    beta=50;                    %prefactor for growth rate
     dt=1;
     end_time = 5000;
     
@@ -35,17 +35,17 @@ function main
 
     %plot(T,Y(:,1:M*N),'-o')
     %plot(T,Y(:,13),'-r')
-    subplot(2,2,1)
+    subplot(3,2,1)
     plot(T,Y(1:M*N,:),'-')
     axis([0 end_time 0 1100])
     title('theta')
     
-    subplot(2,2,2)
+    subplot(3,2,2)
     plot(T,Y(M*N+1:M*N*2,:),'-')
     axis([0 end_time 0 1.5])
     title('x')
     
-    subplot(2,2,3)
+    subplot(3,2,3)
     plot(T,Y(M*N*2+1:M*N*2+M,:),'-')
     title('s')
     axis([0 end_time 0 400])
@@ -66,10 +66,20 @@ function main
     end
     welfare = exp(-sumstimuli / (M*100));
     
-    subplot(2,2,4)
+    subplot(3,2,4)
     plot(T,welfare,'-')
     axis([0 end_time 0 1])
     title('welfare')
+    
+    % Linear colony growth in dependence of colony wealth
+    N= N + welfare*beta
+    
+    subplot(3,2,5)
+    plot(T,N,'-')
+    axis([0 end_time 0 100])
+    title('N')
+    
+    
     
 
 end
