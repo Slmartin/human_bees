@@ -3,8 +3,8 @@
 function main
     global M N phi zeta theta_min theta_max delta alpha p sigma beta
     'start'
-    N = 10;                     %Number of bees
-    M = 5;                      %Number of tasks
+    N = 5;                     %Number of bees
+    M = 2;                      %Number of tasks
 
     theta = ones(N,M)*500;      %response treshold
     x = ones(N,M)*0.1;          %fraction of time spent by individual i on task j
@@ -19,18 +19,18 @@ function main
 
     delta = 1;                  %describes increase of stimuli
     p=0.2;                      %Probability individual i gives up performing task j in time interval
-    zeta=10;                    %learning
-    phi=1;                      %forgetting
+    zeta=4;                    %learning
+    phi=2;                      %forgetting
     sigma=0.1;                  %sigma for gaussian distribution
     beta=50;                    %prefactor for growth rate
     dt=1;
-    end_time = 5000;
+    end_time = 15000;
     
     theta_min=1;
     theta_max=1000;
     
     %[T,Y]=ode45(@ode_function, [0 3000], initial_condition);
-    [T,Y]=euler_method(@ode_function, [0 end_time], initial_condition,0.5);
+    [T,Y]=euler_method(@ode_function, [0 end_time], initial_condition,dt);
     
 
     %plot(T,Y(:,1:M*N),'-o')
@@ -42,7 +42,7 @@ function main
     
     subplot(3,2,2)
     plot(T,Y(M*N+1:M*N*2,:),'-')
-    axis([0 end_time 0 1.5])
+    axis([0 end_time -0.1 1.1])
     title('x')
     
     subplot(3,2,3)
@@ -72,7 +72,7 @@ function main
     title('welfare')
     
     % Linear colony growth in dependence of colony wealth
-    N= N + welfare*beta
+    N= N + welfare*beta;
     
     subplot(3,2,5)
     plot(T,N,'-')
@@ -92,13 +92,13 @@ function dy = ode_function(t,y)
     %theta matrix
     for j=1:M
         for i=1:N
-            factor = 0;
-            y((j-1)*N + i, 1);
-            if (y((j-1)*N + i, 1) > theta_min) && (y((j-1)*N + i, 1)<theta_max)
-                factor = 1;
-            end 
+            %factor = 0;
+            %y((j-1)*N + i, 1);
+            %if (y((j-1)*N + i, 1) > theta_min) && (y((j-1)*N + i, 1)<theta_max)
+            %    factor = 1;
+            %end 
             
-            dy((j-1)*N + i, 1) = [(1 - y((j-1)*N + i +N*M, 1))*phi- y((j-1)*N + i +N*M, 1)*zeta]*factor;
+            dy((j-1)*N + i, 1) = [(1 - y((j-1)*N + i +N*M, 1))*phi- y((j-1)*N + i +N*M, 1)*zeta];
             %xij: dy((i-1)*N + j +N*M, 1)  
         end
     end
@@ -117,7 +117,7 @@ function dy = ode_function(t,y)
             %%%gaussian_sp = normrnd(0,sigma);
             gaussian_sp = sigma*randn;
             
-            dy(M*N+(j-1)*N + i, 1) = [y(M*N*2+j)^2/(y(M*N*2+j)^2+y((j-1)*N + i)^2)]*[1-sum]-p*y(M*N+(j-1)*N + i, 1)+gaussian_sp;
+            dy(M*N+(j-1)*N + i, 1) = (y(M*N*2+j)^2/(y(M*N*2+j)^2+y((j-1)*N + i)^2)+0.0001)*(1-sum)-p*y(M*N+(j-1)*N + i, 1)+gaussian_sp;
         end
     end 
   
@@ -140,7 +140,7 @@ end
 
 
 function [T,Y] = euler_method(fun,time, y0, h)
-    global M N
+    global M N theta_min theta_max
     T = [];
     Y = [];
     T = [T,time(1)];
@@ -153,17 +153,34 @@ function [T,Y] = euler_method(fun,time, y0, h)
     number = (time(2)-time(1))/h;
     
     for j=1:number
-        if(j==number/2)
+        %if(j==number/2)
             %theta matrix
-            for k=1:M
-                for i=1:N
-                    y_eul((k-1)*N + i) = 500;
-                    y_eul(N*M + (k-1)*N + i) = 0.1;
-                end
-            end
-        end
+         %   for k=1:M
+          %      for i=1:N
+           %         y_eul((k-1)*N + i) = 500;
+            %        y_eul(N*M + (k-1)*N + i) = 0.1;
+             %   end
+            %end
+        %end
         y_eul = y_eul + h*fun(t_eul,y_eul);
         t_eul = t_eul + h ;
+        
+        for k=1:M
+            for i=1:N
+                if(y_eul((k-1)*N + i)<theta_min)
+                    y_eul((k-1)*N + i)=theta_min;
+                end
+                if(y_eul((k-1)*N + i)>theta_max)
+                    y_eul((k-1)*N + i)=theta_max;
+                end
+                if(y_eul(N*M + (k-1)*N + i)< 0.0)
+                    y_eul(N*M + (k-1)*N + i) = 0;
+                end
+                if(y_eul(N*M + (k-1)*N + i) > 1.0)
+                    y_eul(N*M + (k-1)*N + i) = 1;
+               end
+            end
+        end 
         
         Y = [Y, y_eul];
         T = [T, t_eul];
