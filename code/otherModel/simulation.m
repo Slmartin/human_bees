@@ -7,7 +7,7 @@ M=3; %Number of tasks
 
 taskvalue = ones(1,M);
 chosenTask = zeros(N,1);
-productivity = 5 + ones(N,M);% randn(N,M);
+productivity = 5 + randn(N,M);
 boredom = zeros(N,M);
 boredomAtChosenTask = zeros(N,1);
 production = zeros(1,M);
