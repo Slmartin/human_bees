@@ -115,3 +115,10 @@ subplot(3,1,3)
 plot(time, boredomTime)
 axis([0 timesteps 0 1])
 title('Boredom at chosen task');
+
+%Idea for alternative representation (DIFFICULT!!)
+%Have the tasks represented as locations on a 2D plot. Then each person
+%(represented by a drawing of a person/worker or by a face)
+%stands next to the task he is performing, and a pile of coins shows how
+%much he earns. Then we see the workers moving to another point when they 
+%change the task.
