@@ -93,6 +93,14 @@ end
 
 time = 0:timesteps+1;
 
+%For visibility, so that lines don't hide each other (superimposition); 
+%TODO: find better way to make them all visible
+for i=1:N
+    for t=1:timesteps+1
+        taskTime(i,t) = taskTime(i,t) - 0.1 + 0.2/N*i;
+    end
+end
+
 subplot(3,1,1)
 plot(time, taskTime)
 axis([0 timesteps 0 M+1])
