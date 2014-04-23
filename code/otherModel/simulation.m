@@ -93,17 +93,17 @@ end
 
 time = 0:timesteps+1;
 
-subplot(2,2,1)
+subplot(3,1,1)
 plot(time, taskTime)
 axis([0 timesteps 0 M+1])
-title('Chosen tasks');
+title('Chosen task number');
 
-subplot(2,2,2)
+subplot(3,1,2)
 plot(time, moneyTime)
 axis([0 timesteps 0 1.1])
 title('Money earned');
 
-subplot(2,2,3)
+subplot(3,1,3)
 plot(time, boredomTime)
 axis([0 timesteps 0 1])
 title('Boredom at chosen task');
