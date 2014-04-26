@@ -22,7 +22,6 @@ function main
     zeta=4;                    %learning
     phi=2;                      %forgetting
     sigma=0.1;                  %sigma for gaussian distribution
-    beta=50;                    %prefactor for growth rate
     dt=1;
     end_time = 15000;
     
@@ -71,17 +70,6 @@ function main
     axis([0 end_time 0 1])
     title('welfare')
     
-    % Linear colony growth in dependence of colony wealth
-    N= N + welfare*beta;
-    
-    subplot(3,2,5)
-    plot(T,N,'-')
-    axis([0 end_time 0 100])
-    title('N')
-    
-    
-    
-
 end
 
 
