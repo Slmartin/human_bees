@@ -13,16 +13,18 @@ boredomAtChosenTask = zeros(N,1);
 production = zeros(1,M);
 money = zeros(N,1);
 learning = 0.01;
-forgetting = 0;
+forgetting = 0.003;
 boredomIncrease = 0.001;
 boredomDecrease = 0.0005;
 
 %Variables for simulation
-timesteps=500;
+timesteps=1000;
 stepSize=1;
 taskTime = zeros(N,1);
 moneyTime = zeros(N,1);
 boredomTime = zeros(N,1);
+totalProduction = 0;
+productionTime = 0;
 
 %initialize choice: everyone choses task where productivity is best
 maxProductivity = zeros(N,1);
@@ -42,9 +44,11 @@ for t=0:timesteps
         production(chosenTask(i,1)) =  production(chosenTask(i,1)) + productivity(i,chosenTask(i,1));
     end
     
-    %Calculate who earns how much money
+    %Calculate who earns how much money and update total production
+    totalProduction = 0;
     for i=1:N
         money(i,1) = productivity(i,chosenTask(i,1)) / production(chosenTask(i,1));
+        totalProduction = totalProduction + productivity(i,chosenTask(i,1));
     end
     
     %Update abilities
@@ -89,6 +93,7 @@ for t=0:timesteps
     taskTime = [taskTime chosenTask];
     moneyTime = [moneyTime money];
     boredomTime = [boredomTime boredomAtChosenTask];
+    productionTime = [productionTime totalProduction];
 end
 
 time = 0:timesteps+1;
@@ -101,21 +106,24 @@ for i=1:N
     end
 end
 
-subplot(3,1,1)
+subplot(3,2,1)
 plot(time, taskTime)
 axis([0 timesteps 0 M+1])
 title('Chosen task number');
 
-subplot(3,1,2)
+subplot(3,2,3)
 plot(time, moneyTime)
 axis([0 timesteps 0 1.1])
 title('Money earned');
 
-subplot(3,1,3)
+subplot(3,2,5)
 plot(time, boredomTime)
-axis([0 timesteps 0 1])
+axis([0 timesteps 0 max(boredomTime(:))+0.1])
 title('Boredom at chosen task');
 
+subplot(3,2,2)
+plot(time, productionTime)
+title('Total production')
 %Idea for alternative representation (DIFFICULT!!)
 %Have the tasks represented as locations on a 2D plot. Then each person
 %(represented by a drawing of a person/worker or by a face)
