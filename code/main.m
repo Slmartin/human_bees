@@ -1,7 +1,7 @@
 %---------------------------------
 % Initialization of the variables
 function main
-    global M N phi zeta theta_min theta_max delta alpha p sigma beta
+    global M N phi zeta theta_min theta_max delta alpha p sigma beta dt
     'start'
     N = 5;                     %Number of bees
     M = 2;                      %Number of tasks
@@ -74,7 +74,7 @@ end
 
 
 function dy = ode_function(t,y)
-    global M N phi zeta theta_min theta_max delta alpha p sigma
+    global M N phi zeta theta_min theta_max delta alpha p sigma dt
     dy = zeros(2*N*M+M,1);
     
     %theta matrix
@@ -85,7 +85,6 @@ function dy = ode_function(t,y)
             %if (y((j-1)*N + i, 1) > theta_min) && (y((j-1)*N + i, 1)<theta_max)
             %    factor = 1;
             %end 
-            
             dy((j-1)*N + i, 1) = [(1 - y((j-1)*N + i +N*M, 1))*phi- y((j-1)*N + i +N*M, 1)*zeta];
             %xij: dy((i-1)*N + j +N*M, 1)  
         end
@@ -103,7 +102,7 @@ function dy = ode_function(t,y)
             %unfortunately the gaussian random number generator seems to be
             %way to slow!!!
             %%%gaussian_sp = normrnd(0,sigma);
-            gaussian_sp = sigma*randn;
+            gaussian_sp = sqrt(dt)*sigma*randn;
             
             dy(M*N+(j-1)*N + i, 1) = (y(M*N*2+j)^2/(y(M*N*2+j)^2+y((j-1)*N + i)^2)+0.0001)*(1-sum)-p*y(M*N+(j-1)*N + i, 1)+gaussian_sp;
         end

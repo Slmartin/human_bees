@@ -7,7 +7,8 @@ M=3; %Number of tasks
 
 taskvalue = ones(1,M);
 chosenTask = zeros(N,1);
-productivity = 5 + randn(N,M);
+initialProductivity = 1.0+abs(4*randn(N,M));
+productivity = initialProductivity;
 boredom = zeros(N,M);
 boredomAtChosenTask = zeros(N,1);
 production = zeros(1,M);
@@ -18,8 +19,8 @@ boredomIncrease = 0.001;
 boredomDecrease = 0.0005;
 
 %Variables for simulation
-timesteps=1000;
-stepSize=1;
+simulationTime=1000;
+dt = 1;
 taskTime = zeros(N,1);
 moneyTime = zeros(N,1);
 boredomTime = zeros(N,1);
@@ -37,6 +38,7 @@ for i=1:N
     end
 end
 
+timesteps = simulationTime/dt;
 for t=0:timesteps
     %Update total production
     production = zeros(1,M);
@@ -55,11 +57,11 @@ for t=0:timesteps
     for i=1:N
         for j=1:M
             if(chosenTask(i,1) == j)
-                productivity(i,j) = min(10, productivity(i,j) + learning);
-                boredom(i,j) = min(9, boredom(i,j) + boredomIncrease);
+                productivity(i,j) = min(10, productivity(i,j) + learning*dt);
+                boredom(i,j) = min(9, boredom(i,j) + boredomIncrease*dt);
             else
-                productivity(i,j) = max(4, productivity(i,j) - forgetting);
-                boredom(i,j) = max(0, boredom(i,j) - boredomDecrease);
+                productivity(i,j) = max(initialProductivity(i,j), productivity(i,j) - forgetting*dt);
+                boredom(i,j) = max(0, boredom(i,j) - boredomDecrease*dt);
             end
         end
     end
