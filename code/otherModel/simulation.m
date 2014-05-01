@@ -7,6 +7,8 @@ M=3; %Number of tasks
 
 taskvalue = ones(1,M);
 chosenTask = zeros(N,1);
+abilities = ones(N,1) + abs(randn(N,1));
+boredomSensitivity = abs(1+randn(N,1)/2.5);
 initialProductivity = 1.0+abs(4*randn(N,M));
 productivity = initialProductivity;
 boredom = zeros(N,M);
@@ -26,6 +28,18 @@ moneyTime = zeros(N,1);
 boredomTime = zeros(N,1);
 totalProduction = 0;
 productionTime = 0;
+
+
+
+%Initialize dependent values
+maximalProductivity = initialProductivity;
+for i=1:N
+    for j=1:M
+        maximalProductivity(i,j) = maximalProductivity(i,j)*abilities(i,1);
+    end
+end
+maximalBoredom = initialProductivity*0.1;
+
 
 %initialize choice: everyone choses task where productivity is best
 maxProductivity = zeros(N,1);
@@ -57,8 +71,8 @@ for t=0:timesteps
     for i=1:N
         for j=1:M
             if(chosenTask(i,1) == j)
-                productivity(i,j) = min(10, productivity(i,j) + learning*dt);
-                boredom(i,j) = min(9, boredom(i,j) + boredomIncrease*dt);
+                productivity(i,j) = min(maximalProductivity(i,j), productivity(i,j) + learning*dt);
+                boredom(i,j) = min(maximalBoredom(i,j), boredom(i,j) + boredomIncrease*boredomSensitivity(i,1)*dt);
             else
                 productivity(i,j) = max(initialProductivity(i,j), productivity(i,j) - forgetting*dt);
                 boredom(i,j) = max(0, boredom(i,j) - boredomDecrease*dt);
