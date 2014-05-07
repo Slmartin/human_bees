@@ -1,7 +1,9 @@
 %---------------------------------
 % Initialization of the variables
+
+
 function main
-    global M N phi zeta theta_min theta_max delta alpha p sigma beta dt
+    global M N phi zeta theta_min theta_max delta alpha p sigma beta
     'start'
     N = 5;                     %Number of bees
     M = 2;                      %Number of tasks
@@ -19,11 +21,17 @@ function main
 
     delta = 1;                  %describes increase of stimuli
     p=0.2;                      %Probability individual i gives up performing task j in time interval
-    zeta=4;                    %learning
-    phi=2;                      %forgetting
-    sigma=0.1;                  %sigma for gaussian distribution
-    dt=1;
-    end_time = 15000;
+    zeta=5;                     %learning %4
+    phi=1;                      %forgetting
+    sigma=0.07;                  %sigma for gaussian distribution
+    beta=50;                    %prefactor for growth rate
+
+    dt=0.9;
+    end_time = 8000;
+
+    %dt=0.01;
+    %end_time = 5000;
+
     
     theta_min=1;
     theta_max=1000;
@@ -62,7 +70,7 @@ function main
     sumstimuli = 0;
     for i=1:M
         sumstimuli = sumstimuli + Y(M*N*2+i,:);
-    end
+    end 
     welfare = exp(-sumstimuli / (M*100));
     
     subplot(3,2,4)
@@ -70,11 +78,22 @@ function main
     axis([0 end_time 0 1])
     title('welfare')
     
+    % Linear colony growth in dependence of colony wealth
+    N= N + welfare*beta;
+    
+    subplot(3,2,5)
+    plot(T,N,'-')
+    axis([0 end_time 0 100])
+    title('N')
+    
+    
+    
+
 end
 
 
 function dy = ode_function(t,y)
-    global M N phi zeta theta_min theta_max delta alpha p sigma dt
+    global M N phi zeta theta_min theta_max delta alpha p sigma
     dy = zeros(2*N*M+M,1);
     
     %theta matrix
@@ -85,6 +104,7 @@ function dy = ode_function(t,y)
             %if (y((j-1)*N + i, 1) > theta_min) && (y((j-1)*N + i, 1)<theta_max)
             %    factor = 1;
             %end 
+            
             dy((j-1)*N + i, 1) = [(1 - y((j-1)*N + i +N*M, 1))*phi- y((j-1)*N + i +N*M, 1)*zeta];
             %xij: dy((i-1)*N + j +N*M, 1)  
         end
@@ -102,9 +122,16 @@ function dy = ode_function(t,y)
             %unfortunately the gaussian random number generator seems to be
             %way to slow!!!
             %%%gaussian_sp = normrnd(0,sigma);
-            gaussian_sp = sqrt(dt)*sigma*randn;
+            %gaussian_sp = sigma*randn;
+            gaussian_sp = 0;
             
             dy(M*N+(j-1)*N + i, 1) = (y(M*N*2+j)^2/(y(M*N*2+j)^2+y((j-1)*N + i)^2)+0.0001)*(1-sum)-p*y(M*N+(j-1)*N + i, 1)+gaussian_sp;
+
+           
+            dy(M*N+(j-1)*N + i, 1) = [y(M*N*2+j)^2/(y(M*N*2+j)^2+y((j-1)*N + i)^2)]*[1-sum]-p*y(M*N+(j-1)*N + i, 1)+gaussian_sp;
+            
+     
+
         end
     end 
   
@@ -127,7 +154,7 @@ end
 
 
 function [T,Y] = euler_method(fun,time, y0, h)
-    global M N theta_min theta_max
+    global M N theta_min theta_max sigma
     T = [];
     Y = [];
     T = [T,time(1)];
@@ -149,9 +176,9 @@ function [T,Y] = euler_method(fun,time, y0, h)
              %   end
             %end
         %end
-        y_eul = y_eul + h*fun(t_eul,y_eul);
+        y_eul = y_eul + h*fun(t_eul,y_eul)+sqrt(h)*sigma*randn(size(y_eul));
         t_eul = t_eul + h ;
-        
+        j
         for k=1:M
             for i=1:N
                 if(y_eul((k-1)*N + i)<theta_min)
@@ -167,6 +194,13 @@ function [T,Y] = euler_method(fun,time, y0, h)
                     y_eul(N*M + (k-1)*N + i) = 1;
                end
             end
+        
+        for v=1:2*N*M+M
+                if (y_eul(v)<=0)
+                    y_eul(v)=0.0001;
+                end 
+        end
+
         end 
         
         Y = [Y, y_eul];
