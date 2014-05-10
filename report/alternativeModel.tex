@@ -15,6 +15,8 @@ The initial value for the productivity $P_{ij}$ of worker $i$ at task $j$ is gen
 \begin{equation}
 	P_{ij}(t_0) = 
 \end{equation}
+As a first task, a worker will choose the task where his productivity is highest.
+
 In order to describe the fact that some people intrinsically learn faster than other people and have more room for improvement, each worker $i$ is attributed a task-independent \emph{ability} $A_i$, which is time-independent and generated randomly according to
 \begin{equation}
 	A_{i} = 
@@ -43,4 +45,13 @@ The evolution of the boredom evolves in a similar fashion as the productivity an
 		B_{ij}(t) - B_{ij}(t) \cdot \eta \Delta t & \text{otherwise}\\
 		\end{cases}
 \end{equation}
-The \emph{job offer probability} $p_s$ is responsible for the occasional possibility given to the worker to change his task: at each time step, a worker has this choice if a random number distributed uniformly between $0$ and $1$ is smaller than $p_s$.
+The \emph{job offer frequency} $p_s$ is responsible for the occasional possibility given to the worker to change his task: at each time step, a worker has this choice if a random number distributed uniformly between $0$ and $1$ is smaller than $p_s$.
+
+\subsubsection{Results}
+The MMM model is quite robust and the variation of the parameters allows several findings. 
+Parameters for a standard simulation could be the following: $N=7$, $M=3$, $\lambda=0.01$, $\kappa=0.003$, $\zeta=0.001$, $\eta=0.0005$, $\Delta t=1$. Figure XXX shows the time evolution of the tasks performed by the different workers. It allows to see the dynamics of work allocation. Figures XXX, XXX and XXX allow to understand the motivation for choosing another task. Figure XXX shows the evolution of the productivity at the current tasks and explains why workers performing the same task do not earn the same amount of money, which can be seen in Figure XXX. Figure XXX displays the evolution of the boredom. It illustrates that a too high boredom can induce a change of task even if the new task is less paid. A general observation is that people having smaller values for the maximal boredom tend to change the task less frequently. Figure XXX shows the total amount of money earned so far by each of the workers. It features a pronounced social inequality, which is caused by two main factors. Firstly, the inherent characteristics of the workers make some of them much more productive, thence earning more money. The second factor is has its origin in the society, more precisely in the production of other individuals; it could be illustrated by the fact that a not particularly skilled individual will be remunerated a lot if he is the only one able to do his job, while two very skilled individuals at the same task will earn much less.
+
+The boredom can be seen as the main reason for choosing a new task. Figures XXX and XXX were obtained by using $\zeta=0$ instead of $\zeta=0.001$ as above. They display a prompt work specialization, illustrated by no task changes after a short equilibration period.
+Figures XXX and XXX, on the other hand, were obtained with $\zeta=0.01$. They show the more frequent task changes.
+
+The parameter $p_s$ becomes important when task changes become frequent and a smaller value for $p_s$ will result in less frequent task changes. However, changing $p_s$ above a specific threshold will have a negligible influence, as the additional time a worker has to wait after a new task has become more profitable will change only little.

@@ -7,12 +7,12 @@ M=4; %Number of tasks
 
 %Parameters of the model
 abilities = ones(N,1) + abs(randn(N,1));
-boredomSensitivity = abs(1+randn(N,1)/2.5);
+%boredomSensitivity = abs(1+randn(N,1)/2.5);
 initialProductivity = 1.0+abs(4*randn(N,M));
-maximalBoredom = (1.0+abs(4*randn(N,M)))*0.13;
+maximalBoredom = (1.0+abs(4*randn(N,M)))*0.15;
 learning = 0.01;
 forgetting = 0.003;
-boredomIncrease = 0.001;
+boredomIncrease = 0.01;
 boredomDecrease = 0.0005;
 switchPossibilityFrequency = 0.01; %Meaning ~all 1/x days
 
