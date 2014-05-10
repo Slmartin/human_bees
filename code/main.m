@@ -81,6 +81,12 @@ function main
     % Linear colony growth in dependence of colony wealth
     N= N + welfare*beta;
     
+    subplot(3,2,5)
+    plot(T,N,'-')
+    axis([0 end_time 0 100])
+    title('N')
+  
+    
     
 
 end
