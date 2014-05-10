@@ -12,4 +12,10 @@ Every now and then, the worker is given the possibility to quit his task and cho
 
 \subsubsection{Implementation details}
 The initial value for the productivity $P_{i,j}$ of worker $i$ at task $j$ is generated randomly according to the equation
-
+\begin{equation}
+	P_{i,j}(t_0) = 
+\end{equation}
+The initial productivity of a worker is directly related to his maximal productivity at this task by
+\begin{equation}
+	P_{i,j}^\textrm{max} = m \cdot P_{i,j}(t_0)
+\end{equation}
