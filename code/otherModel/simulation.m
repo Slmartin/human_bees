@@ -2,18 +2,18 @@
 clearvars;
 
 %Initialize the variables:
-N=7; %Number of persons
-M=3; %Number of tasks
+N=8; %Number of persons
+M=4; %Number of tasks
 
 %Parameters of the model
 abilities = ones(N,1) + abs(randn(N,1));
 boredomSensitivity = abs(1+randn(N,1)/2.5);
 initialProductivity = 1.0+abs(4*randn(N,M));
+maximalBoredom = (1.0+abs(4*randn(N,M)))*0.13;
 learning = 0.01;
 forgetting = 0.003;
 boredomIncrease = 0.001;
 boredomDecrease = 0.0005;
-maxBoredomFactor = 0.1;
 switchPossibilityFrequency = 0.01; %Meaning ~all 1/x days
 
 %Variables for simulation
@@ -26,11 +26,15 @@ chosenTask = ones(N,1);
 productivity = initialProductivity;
 boredom = zeros(N,M);
 boredomAtChosenTask = zeros(N,1);
+productivityAtChosenTask = zeros(N,1);
 production = zeros(1,M);
 money = zeros(N,1);
+totalmoney = zeros(N,1);
 taskTime = zeros(N,1);
 moneyTime = zeros(N,1);
+totalmoneyTime = zeros(N,1);
 boredomTime = zeros(N,1);
+productivityTime = zeros(N,1);
 totalProduction = 0;
 productionTime = 0;
 
@@ -41,7 +45,7 @@ for i=1:N
         maximalProductivity(i,j) = maximalProductivity(i,j)*abilities(i,1);
     end
 end
-maximalBoredom = initialProductivity*maxBoredomFactor;
+%maximalBoredom = initialProductivity*maxBoredomFactor;
 
 %initialize choice: everyone choses task where productivity is best
 maxProductivity = zeros(N,1);
@@ -66,6 +70,7 @@ for t=0:timesteps
     totalProduction = 0;
     for i=1:N
         money(i,1) = productivity(i,chosenTask(i,1)) / production(chosenTask(i,1));
+        totalmoney(i,1) = totalmoney(i,1) + money(i,1);
         totalProduction = totalProduction + productivity(i,chosenTask(i,1));
     end
     
@@ -73,12 +78,16 @@ for t=0:timesteps
     for i=1:N
         for j=1:M
             if(chosenTask(i,1) == j)
-                productivity(i,j) = min(maximalProductivity(i,j), productivity(i,j) + learning*dt);
-                boredom(i,j) = boredom(i,j) + (maximalBoredom(i,j)-boredom(i,j))*(boredomIncrease*boredomSensitivity(i,1)*dt);
+                productivity(i,j) = productivity(i,j) + (maximalProductivity(i,j)-productivity(i,j))*(learning*dt);
+                %productivity(i,j) = min(maximalProductivity(i,j), productivity(i,j) + learning*dt);
+                boredom(i,j) = boredom(i,j) + (maximalBoredom(i,j)-boredom(i,j))*(boredomIncrease*dt);
+                %boredom(i,j) = boredom(i,j) + (maximalBoredom(i,j)-boredom(i,j))*(boredomIncrease*boredomSensitivity(i,1)*dt);
                 %boredom(i,j) = min(maximalBoredom(i,j), boredom(i,j) + boredomIncrease*boredomSensitivity(i,1)*dt);
             else
-                productivity(i,j) = max(initialProductivity(i,j), productivity(i,j) - forgetting*dt);
-                boredom(i,j) = boredom(i,j) - (boredom(i,j))*(boredomDecrease*boredomSensitivity(i,1)*dt);
+                productivity(i,j) = productivity(i,j) - (productivity(i,j))*(forgetting*dt);
+                %productivity(i,j) = max(initialProductivity(i,j), productivity(i,j) - forgetting*dt);
+                boredom(i,j) = boredom(i,j) - (boredom(i,j))*(boredomDecrease*dt);
+                %boredom(i,j) = boredom(i,j) - (boredom(i,j))*(boredomDecrease*boredomSensitivity(i,1)*dt);
                 %boredom(i,j) = max(0, boredom(i,j) - boredomDecrease*dt);
             end
         end
@@ -108,11 +117,14 @@ for t=0:timesteps
     %Update boredom
     for i=1:N
         boredomAtChosenTask(i,1) = boredom(i,chosenTask(i,1));
+        productivityAtChosenTask(i,1) = productivity(i,chosenTask(i,1));
     end
     
     taskTime = [taskTime chosenTask];
     moneyTime = [moneyTime money];
+    totalmoneyTime = [totalmoneyTime totalmoney];
     boredomTime = [boredomTime boredomAtChosenTask];
+    productivityTime = [productivityTime productivityAtChosenTask];
     productionTime = [productionTime totalProduction];
 end
 
@@ -126,24 +138,34 @@ for i=1:N
     end
 end
 
-subplot(3,2,1)
+subplot(4,2,1)
 plot(time, taskTime)
 axis([0 timesteps 0 M+1])
 title('Chosen task number');
 
-subplot(3,2,3)
+subplot(4,2,3)
 plot(time, moneyTime)
 axis([0 timesteps 0 1.1])
 title('Money earned');
 
-subplot(3,2,5)
+subplot(4,2,5)
+plot(time, productivityTime)
+axis([0 timesteps 0 max(productivityTime(:))*1.1])
+title('Productivity at chosen task');
+
+subplot(4,2,7)
 plot(time, boredomTime)
 axis([0 timesteps 0 max(boredomTime(:))+0.1])
 title('Boredom at chosen task');
 
-subplot(3,2,2)
+subplot(4,2,2)
 plot(time, productionTime)
 title('Total production')
+
+subplot(4,2,4)
+plot(time, totalmoneyTime)
+title('Total money earned')
+
 %Idea for alternative representation (DIFFICULT!!)
 %Have the tasks represented as locations on a 2D plot. Then each person
 %(represented by a drawing of a person/worker or by a face)
