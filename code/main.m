@@ -85,7 +85,7 @@ function main
     plot(T,N,'-')
     axis([0 end_time 0 100])
     title('N')
-    
+  
     
     
 
