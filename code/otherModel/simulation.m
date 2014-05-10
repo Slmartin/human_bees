@@ -5,31 +5,34 @@ clearvars;
 N=7; %Number of persons
 M=3; %Number of tasks
 
-taskvalue = ones(1,M);
-chosenTask = zeros(N,1);
+%Parameters of the model
 abilities = ones(N,1) + abs(randn(N,1));
 boredomSensitivity = abs(1+randn(N,1)/2.5);
 initialProductivity = 1.0+abs(4*randn(N,M));
+learning = 0.01;
+forgetting = 0.003;
+boredomIncrease = 0.001;
+boredomDecrease = 0.0005;
+maxBoredomFactor = 0.1;
+switchPossibilityFrequency = 0.01; %Meaning ~all 1/x days
+
+%Variables for simulation
+simulationTime=10000;
+dt = 1;
+
+%Other needed variables
+taskvalue = ones(1,M);
+chosenTask = ones(N,1);
 productivity = initialProductivity;
 boredom = zeros(N,M);
 boredomAtChosenTask = zeros(N,1);
 production = zeros(1,M);
 money = zeros(N,1);
-learning = 0.01;
-forgetting = 0.003;
-boredomIncrease = 0.001;
-boredomDecrease = 0.0005;
-
-%Variables for simulation
-simulationTime=1000;
-dt = 1;
 taskTime = zeros(N,1);
 moneyTime = zeros(N,1);
 boredomTime = zeros(N,1);
 totalProduction = 0;
 productionTime = 0;
-
-
 
 %Initialize dependent values
 maximalProductivity = initialProductivity;
@@ -38,8 +41,7 @@ for i=1:N
         maximalProductivity(i,j) = maximalProductivity(i,j)*abilities(i,1);
     end
 end
-maximalBoredom = initialProductivity*0.1;
-
+maximalBoredom = initialProductivity*maxBoredomFactor;
 
 %initialize choice: everyone choses task where productivity is best
 maxProductivity = zeros(N,1);
@@ -72,33 +74,35 @@ for t=0:timesteps
         for j=1:M
             if(chosenTask(i,1) == j)
                 productivity(i,j) = min(maximalProductivity(i,j), productivity(i,j) + learning*dt);
-                boredom(i,j) = min(maximalBoredom(i,j), boredom(i,j) + boredomIncrease*boredomSensitivity(i,1)*dt);
+                boredom(i,j) = boredom(i,j) + (maximalBoredom(i,j)-boredom(i,j))*(boredomIncrease*boredomSensitivity(i,1)*dt);
+                %boredom(i,j) = min(maximalBoredom(i,j), boredom(i,j) + boredomIncrease*boredomSensitivity(i,1)*dt);
             else
                 productivity(i,j) = max(initialProductivity(i,j), productivity(i,j) - forgetting*dt);
-                boredom(i,j) = max(0, boredom(i,j) - boredomDecrease*dt);
+                boredom(i,j) = boredom(i,j) - (boredom(i,j))*(boredomDecrease*boredomSensitivity(i,1)*dt);
+                %boredom(i,j) = max(0, boredom(i,j) - boredomDecrease*dt);
             end
         end
     end
     
     %Allow one person to change the job
-    if(mod(t,10) == 0)
-        theChosenOne = mod(t/10,N) + 1;
-        maxGain=0;
-        bestTask=0;
-        for j=1:M
-            if(j == chosenTask(theChosenOne,1))
-                gain = productivity(theChosenOne,j) / production(chosenTask(theChosenOne,1));
-            else
-                gain = productivity(theChosenOne,j) / (production(1,j)+productivity(theChosenOne,j));
+    for i=1:N
+        if(rand() < switchPossibilityFrequency*dt)
+            maxGain=-1000;
+            bestTask=0;
+            for j=1:M
+                if(j == chosenTask(i,1))
+                    gain = productivity(i,j) / production(chosenTask(i,1));
+                else
+                    gain = productivity(i,j) / (production(1,j)+productivity(i,j));
+                end
+                gain = gain - boredom(i,j);
+                if(gain > maxGain)
+                    maxGain=gain;
+                    bestTask=j;
+                end
             end
-            gain = gain - boredom(theChosenOne,j);
-            if(gain > maxGain)
-                maxGain=gain;
-                bestTask=j;
-            end
-            %[theChosenOne j gain]
+            chosenTask(i,1) = bestTask;
         end
-        chosenTask(theChosenOne,1) = bestTask;
     end
     
     %Update boredom
