@@ -7,21 +7,21 @@ M=3; %Number of tasks
 
 %Parameters of the model
 abilitymu = 1;
-abilitysd = 1;
+abilitysd = 0.3;
 prodmu = 1;
-prodsd = 4;
+prodsd = 0.3;
 boredommu=0.10;
-boredomsd = 0.60;
+boredomsd = 0.030;
 learning = 0.01;
 forgetting = 0.003;
 boredomIncrease = 0.001;
-boredomDecrease = 0.0005;
-switchPossibilityFrequency = 0.01; %Meaning ~all 1/x days
+boredomDecrease = 0.0003;
+switchPossibilityFrequency = 0.003; %Meaning ~all 1/x days
 
 %initialize random variables
-abilities = abilitymu + abilitysd*abs(randn(N,1));
-initialProductivity = prodmu + prodsd*abs(randn(N,M));
-maximalBoredom = boredommu + boredomsd*abs(randn(N,M));
+abilities = abs(abilitymu + abilitysd*randn(N,1));
+initialProductivity = abs(prodmu + prodsd*randn(N,M));
+maximalBoredom = abs(boredommu + boredomsd*randn(N,M));
 
 
 %Variables for simulation

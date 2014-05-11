@@ -1,3 +1,6 @@
+\newcommand{\rnd}[2]{\mathrm{rnd}(#1,#2)}
+
+
 \subsection{Alternative model}
 
 In order to investigate the influence of external perturbations, a more robust model was derived from the model proposed by XXXX. We name this model the MMM model.
@@ -13,13 +16,13 @@ Every now and then, the worker is given the possibility to quit his task and cho
 \subsubsection{Implementation details}
 The initial value for the productivity $P_{ij}$ of worker $i$ at task $j$ is generated randomly according to the equation
 \begin{equation}
-	P_{ij}(t_0) = 
+	P_{ij}(t_0) = \rnd{P_\mu}{P_\sigma}
 \end{equation}
 As a first task, a worker will choose the task where his productivity is highest.
 
 In order to describe the fact that some people intrinsically learn faster than other people and have more room for improvement, each worker $i$ is attributed a task-independent \emph{ability} $A_i$, which is time-independent and generated randomly according to
 \begin{equation}
-	A_{i} = 
+	A_{i} = \rnd{A_\mu}{A_\sigma}
 \end{equation}
 The maximal productivity of worker $i$ at task $j$ is directly related to his initial productivity at this task and his ability:
 \begin{equation}
@@ -36,7 +39,7 @@ where $\Delta t$ is the time step for the time evolution.
 
 The boredom $B_{ij}$ of worker $i$ at task $j$ is initially zero at time $t_0$. The maximal boredom $B_{ij}^\textrm{max}$ is generated randomly by the following formula:
 \begin{equation}
-	B_{ij}^\textrm{max} = 
+	B_{ij}^\textrm{max} = \rnd{B_\mu}{B_\sigma}
 \end{equation}
 The evolution of the boredom evolves in a similar fashion as the productivity and depends on the parameters $\zeta$ and $\eta$ for the boredom increase and decrease, respectively:
 \begin{equation}
