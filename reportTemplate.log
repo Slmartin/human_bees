@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  22 APR 2014 17:11
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  11 MAY 2014 19:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -215,21 +215,21 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
-(./reportTemplate.aux (./Model.aux))
+(./reportTemplate.aux (./Model.aux) (./alternativeModel.aux) (./results.aux))
 \openout1 = `reportTemplate.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -316,34 +316,96 @@ go-eps-converted-to.pdf>] [2] (./reportTemplate.toc)
 
  (./Model.tex [5
 
-]) [6] [7
+]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 44.
+
+(/usr/local/texlive/2012/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 44.
+) [6]
+\openout2 = `alternativeModel.aux'.
+
+
+No file alternativeModel.tex.
+[7
+
+
 
 ]
-(./reportTemplate.aux (./Model.aux)) ) 
+\openout2 = `results.aux'.
+
+ (./results.tex
+Package epstopdf Info: Source file: <figures/thetax.eps>
+(epstopdf)                    date: 2014-05-11 13:23:37
+(epstopdf)                    size: 233136 bytes
+(epstopdf)             Output file: <figures/thetax-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-05-11 13:23:47
+(epstopdf)                    size: 71185 bytes
+(epstopdf)             Command: <repstopdf --outfile=figures/thetax-eps-convert
+ed-to.pdf figures/thetax.eps>
+(epstopdf)             \includegraphics on input line 8.
+Package epstopdf Info: Output file is already uptodate.
+
+<figures/thetax-eps-converted-to.pdf, id=40, 561.09625pt x 421.575pt>
+File: figures/thetax-eps-converted-to.pdf Graphic file (type pdf)
+
+<use figures/thetax-eps-converted-to.pdf>
+Package pdftex.def Info: figures/thetax-eps-converted-to.pdf used on input line
+ 8.
+(pdftex.def)             Requested size: 171.99922pt x 129.22667pt.
+ [8
+
+ <./figures/thetax-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <figures/welstim.eps>
+(epstopdf)                    date: 2014-05-11 18:34:37
+(epstopdf)                    size: 347262 bytes
+(epstopdf)             Output file: <figures/welstim-eps-converted-to.pdf>
+(epstopdf)                    date: 2014-05-11 18:34:54
+(epstopdf)                    size: 201387 bytes
+(epstopdf)             Command: <repstopdf --outfile=figures/welstim-eps-conver
+ted-to.pdf figures/welstim.eps>
+(epstopdf)             \includegraphics on input line 20.
+Package epstopdf Info: Output file is already uptodate.
+
+<figures/welstim-eps-converted-to.pdf, id=55, 2030.58624pt x 667.49374pt>
+File: figures/welstim-eps-converted-to.pdf Graphic file (type pdf)
+
+<use figures/welstim-eps-converted-to.pdf>
+Package pdftex.def Info: figures/welstim-eps-converted-to.pdf used on input lin
+e 20.
+(pdftex.def)             Requested size: 537.50577pt x 176.68129pt.
+ [9 <./figures/welstim-eps-converted-to.pdf>]) [10] [11
+
+] (./reportTemplate.aux (./Model.aux) (./alternativeModel.aux) (./results.aux))
+ ) 
 Here is how much of TeX's memory you used:
- 3212 strings out of 493488
- 42899 string characters out of 3141326
- 109375 words of memory out of 3000000
- 6462 multiletter control sequences out of 15000+200000
- 12457 words of font info for 48 fonts, out of 3000000 for 9000
+ 3264 strings out of 493488
+ 43914 string characters out of 3141326
+ 109932 words of memory out of 3000000
+ 6496 multiletter control sequences out of 15000+200000
+ 14013 words of font info for 54 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
- 42i,12n,24p,974b,254s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/local/texlive/2012/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2012/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2012/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2012/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2012/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmr17.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr8.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmsy10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmti12.pfb>
-Output written on reportTemplate.pdf (7 pages, 140285 bytes).
+ 42i,12n,24p,2058b,254s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
+/usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
+usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></u
+sr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr
+/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
+ocal/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/t
+exlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texl
+ive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texli
+ve/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive
+/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on reportTemplate.pdf (11 pages, 451001 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
- 53 compressed objects within 1 object stream
+ 119 PDF objects out of 1000 (max. 8388607)
+ 84 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
