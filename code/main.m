@@ -27,7 +27,7 @@ function main
     beta=50;                    %prefactor for growth rate
 
     dt=0.9;
-    end_time = 8000;
+    end_time = 6000;
 
     %dt=0.01;
     %end_time = 5000;
@@ -42,20 +42,45 @@ function main
 
     %plot(T,Y(:,1:M*N),'-o')
     %plot(T,Y(:,13),'-r')
-    subplot(3,2,1)
-    plot(T,Y(1:M*N,:),'-')
-    axis([0 end_time 0 1100])
-    title('theta')
+    %subplot(3,2,1)
+    %plot(T,Y(1:M*N,:),'-')
+    %axis([0 end_time 0 1100])
+    %title('theta')
     
-    subplot(3,2,2)
-    plot(T,Y(M*N+1:M*N*2,:),'-')
-    axis([0 end_time -0.1 1.1])
-    title('x')
+    %subplot(3,2,2)
+    %plot(T,Y(M*N+1:M*N*2,:),'-')
+    %axis([0 end_time -0.1 1.1])
+    %title('x')
     
-    subplot(3,2,3)
-    plot(T,Y(M*N*2+1:M*N*2+M,:),'-')
-    title('s')
+    %subplot(3,2,3)
+    %plot(T,Y(M*N*2+1:M*N*2+M,:),'-')
+    %title('s')
+    %axis([0 end_time 0 400])
+    
+    %%%%%%%%%%%%%%%% Plotting section report %%%%%%%%%%%
+
+ set(0,'DefaultAxesColorOrder',jet(10))
+     subplot(1,3,1)
+    set(gca,'fontsize',28)
+    plot(T,Y(1:M*N,:),'-','LineWidth',1.5)
+    axis([0 end_time 0 1050])
+    xlabel('Time','FontSize',30)
+    ylabel('\theta','FontSize',30)
+     hleg1=legend('\theta_{11}','\theta_{21}','\theta_{31}','\theta_{41}','\theta_{51}','\theta_{12}','\theta_{22}','\theta_{32}','\theta_{42}','\theta_{52}')
+     set(hleg1,'FontSize',30);
+
+    
+    subplot(1,3,2)
+    set(gca,'fontsize',28)
+    plot(T,Y(M*N*2+1:M*N*2+M,:),'-','LineWidth',1.5 )
     axis([0 end_time 0 400])
+    xlabel('Time','FontSize',30)
+    ylabel('s','FontSize',30)
+    hleg2=legend('s_{1}','s_{2}')
+    set(hleg2,'FontSize',30);
+
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     %here is a first version of welfare implementation
     %of course we can use another function to estimate welfare
@@ -73,19 +98,28 @@ function main
     end 
     welfare = exp(-sumstimuli / (M*100));
     
-    subplot(3,2,4)
-    plot(T,welfare,'-')
-    axis([0 end_time 0 1])
-    title('welfare')
+    %subplot(3,2,4)
+    %plot(T,welfare,'-')
+    %axis([0 end_time 0 1])
+    %title('welfare')
     
     % Linear colony growth in dependence of colony wealth
     N= N + welfare*beta;
     
-    subplot(3,2,5)
-    plot(T,N,'-')
-    axis([0 end_time 0 100])
-    title('N')
+    %subplot(3,2,5)
+    %plot(T,N,'-')
+    %axis([0 end_time 0 100])
+    %title('N')
   
+     subplot(1,3,3)
+    set(gca,'fontsize',28)
+    plot(T,welfare,'-','LineWidth',1.5)
+    axis([0 end_time 0 1])
+    xlabel('Time','FontSize',30)
+    ylabel('W','FontSize',30)
+    
+ 
+ 
     
     
 
