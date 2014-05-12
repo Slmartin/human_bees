@@ -10,12 +10,12 @@ N=7; %Number of persons
 M=3; %Number of tasks
 
 %Parameters of the model
-abilitymu = 1;
-abilitysd = 0.3;
-prodmu = 1;
-prodsd = 0.3;
-boredommu=0.10;
-boredomsd = 0.30;
+abilitymu = 3;
+abilitysd = 0.7;
+prodmu = 2;
+prodsd = 0.7;
+boredommu=0.5;
+boredomsd = 0.15;
 learning = 0.01;
 forgetting = 0.003;
 boredomIncrease = 0.001;
@@ -179,41 +179,57 @@ for i=1:N
         taskTime(i,t) = taskTime(i,t) - 0.1 + 0.2/N*i;
     end
 end
-fs=10;
-th=1.5;
+fs=34;
+th=5;
 figure(1)
     set(gca,'fontsize',28)
     plot(time, taskTime, 'LineWidth',th)
     xlabel('Time','FontSize',fs)
     ylabel('Chosen Task number','FontSize',fs)
 axis([0 timesteps 0.5 M+0.5])
-set(gcf, 'PaperPosition', [0 0 20 10]); %Position plot at left hand corner with width 5 and height 5.
-set(gcf, 'PaperSize', [20 10]); %Set the paper to have width 5 and height 5.
-saveas(gcf, 'test', 'pdf') %Save figure
+set(gcf, 'PaperPosition', [0 0 28 14]); %Position plot at left hand corner with width 5 and height 5.
+set(gcf, 'PaperSize', [28 14]); %Set the paper to have width 5 and height 5.
+saveas(gcf, 'taskno', 'pdf') %Save figure
 
 figure(2)
+    set(gca,'fontsize',28)
 plot(time, moneyTime, 'LineWidth',th)
 axis([0 timesteps 0 1.1])
     xlabel('Time','FontSize',fs)
     ylabel('Earned money','FontSize',fs)
+set(gcf, 'PaperPosition', [0 0 28 14]); %Position plot at left hand corner with width 5 and height 5.
+set(gcf, 'PaperSize', [28 14]); %Set the paper to have width 5 and height 5.
+saveas(gcf, 'money', 'pdf') %Save figure
 
 figure(3)
+    set(gca,'fontsize',28)
 plot(time, productivityTime, 'LineWidth',th)
 axis([0 timesteps 0 max(productivityTime(:))*1.1])
     xlabel('Time','FontSize',fs)
     ylabel('Productivity at chosen task','FontSize',fs)
-    
+    set(gcf, 'PaperPosition', [0 0 28 14]); %Position plot at left hand corner with width 5 and height 5.
+set(gcf, 'PaperSize', [28 14]); %Set the paper to have width 5 and height 5.
+saveas(gcf, 'productivity', 'pdf') %Save figure
+
 figure(4)
+    set(gca,'fontsize',28)
 plot(time, boredomTime, 'LineWidth',th)
 axis([0 timesteps 0 max(boredomTime(:))+0.1])
     xlabel('Time','FontSize',fs)
     ylabel('Boredom at chosen task','FontSize',fs)
+set(gcf, 'PaperPosition', [0 0 28 14]); %Position plot at left hand corner with width 5 and height 5.
+set(gcf, 'PaperSize', [28 14]); %Set the paper to have width 5 and height 5.
+saveas(gcf, 'boredom', 'pdf') %Save figure
 
 figure(5)
+    set(gca,'fontsize',28)
 plot(time, totalmoneyTime, 'LineWidth',th)
 axis([0 timesteps 0 max(totalmoneyTime(:))*1.1])
     xlabel('Time','FontSize',fs)
     ylabel('Total amount of money earned so far','FontSize',fs)
+set(gcf, 'PaperPosition', [0 0 28 14]); %Position plot at left hand corner with width 5 and height 5.
+set(gcf, 'PaperSize', [28 14]); %Set the paper to have width 5 and height 5.
+saveas(gcf, 'totalmoney', 'pdf') %Save figure
 
 figure(6)
 subplot(4,2,2)
