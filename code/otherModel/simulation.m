@@ -1,6 +1,10 @@
 %Main function
 clearvars;
 
+%Set seed for random number generation
+RandStream.setGlobalStream(RandStream('mt19937ar','seed',42))
+RandStream.getGlobalStream()
+
 %Initialize the variables:
 N=7; %Number of persons
 M=3; %Number of tasks
@@ -175,36 +179,49 @@ for i=1:N
         taskTime(i,t) = taskTime(i,t) - 0.1 + 0.2/N*i;
     end
 end
+fs=10;
+th=1.5;
+figure(1)
+    set(gca,'fontsize',28)
+    plot(time, taskTime, 'LineWidth',th)
+    xlabel('Time','FontSize',fs)
+    ylabel('Chosen Task number','FontSize',fs)
+axis([0 timesteps 0.5 M+0.5])
+set(gcf, 'PaperPosition', [0 0 20 10]); %Position plot at left hand corner with width 5 and height 5.
+set(gcf, 'PaperSize', [20 10]); %Set the paper to have width 5 and height 5.
+saveas(gcf, 'test', 'pdf') %Save figure
 
-subplot(4,2,1)
-plot(time, taskTime)
-axis([0 timesteps 0 M+1])
-title('Chosen task number');
-
-subplot(4,2,3)
-plot(time, moneyTime)
+figure(2)
+plot(time, moneyTime, 'LineWidth',th)
 axis([0 timesteps 0 1.1])
-title('Money earned');
+    xlabel('Time','FontSize',fs)
+    ylabel('Earned money','FontSize',fs)
 
-subplot(4,2,5)
-plot(time, productivityTime)
+figure(3)
+plot(time, productivityTime, 'LineWidth',th)
 axis([0 timesteps 0 max(productivityTime(:))*1.1])
-title('Productivity at chosen task');
-
-subplot(4,2,7)
-plot(time, boredomTime)
+    xlabel('Time','FontSize',fs)
+    ylabel('Productivity at chosen task','FontSize',fs)
+    
+figure(4)
+plot(time, boredomTime, 'LineWidth',th)
 axis([0 timesteps 0 max(boredomTime(:))+0.1])
-title('Boredom at chosen task');
+    xlabel('Time','FontSize',fs)
+    ylabel('Boredom at chosen task','FontSize',fs)
 
+figure(5)
+plot(time, totalmoneyTime, 'LineWidth',th)
+axis([0 timesteps 0 max(totalmoneyTime(:))*1.1])
+    xlabel('Time','FontSize',fs)
+    ylabel('Total amount of money earned so far','FontSize',fs)
+
+figure(6)
 subplot(4,2,2)
 plot(time, productionTime)
 title('Total production')
 
-subplot(4,2,4)
-plot(time, totalmoneyTime)
-axis([0 timesteps 0 max(totalmoneyTime(:))*1.1])
-title('Total money earned')
 
+save()
 %Idea for alternative representation (DIFFICULT!!)
 %Have the tasks represented as locations on a 2D plot. Then each person
 %(represented by a drawing of a person/worker or by a face)
