@@ -53,11 +53,47 @@ The \emph{job offer frequency} $p_s$ is responsible for the occasional possibili
 
 \subsubsection{Results and Discussion}
 The MMM model is quite robust and the variation of the parameters allows several findings. 
-Parameters for a standard simulation could be the following: $N=7$, $M=3$, $\lambda=0.01$, $\kappa=0.003$, $\zeta=0.001$, $\eta=0.0005$, $\Delta t=1$. Figure XXX shows the time evolution of the tasks performed by the different workers. It allows to see the dynamics of work allocation. Figures XXX, XXX and XXX allow to understand the motivation for choosing another task. Figure XXX shows the evolution of the productivity at the current tasks and explains why workers performing the same task do not earn the same amount of money, which can be seen in Figure XXX. Figure XXX displays the evolution of the boredom. It illustrates that a too high boredom can induce a change of task even if the new task is less paid. A general observation is that people having smaller values for the maximal boredom tend to change the task less frequently. Figure XXX shows the total amount of money earned so far by each of the workers. It features a pronounced social inequality, which is caused by two main factors. Firstly, the inherent characteristics of the workers make some of them much more productive, thence earning more money. The second factor is has its origin in the society, more precisely in the production of other individuals; it could be illustrated by the fact that a not particularly skilled individual will be remunerated a lot if he is the only one able to do his job, while two very skilled individuals at the same task will earn much less.
+Parameters for a standard simulation could be the following: $N=7$, $M=3$, $\lambda=0.01$, $\kappa=0.003$, $\zeta=0.001$, $\eta=0.0003$, $p_s=0.003$, $\Delta t=1$, $A_\mu=3$, $A_\sigma=0.7$, $P_\mu=2$, $P_\sigma=0.7$, $B_\mu=0.5$, $B_\sigma=0.15$. Figure~\ref{fig:sim1task} shows the time evolution of the tasks performed by the different workers. It allows to see the dynamics of work allocation. Figures~\ref{fig:sim1prod}, \ref{fig:sim1money} and \ref{fig:sim1boredom} allow to understand the motivation for choosing another task. Figure~\ref{fig:sim1prod} shows the evolution of the productivity at the current tasks and explains why workers performing the same task do not earn the same amount of money, which can be seen in Figure~\ref{fig:sim1money}. Figure~\ref{fig:sim1boredom} displays the evolution of the boredom. It illustrates that a too high boredom can induce a change of task even if the new task is less paid than the previous one. A general observation is that people working on tasks at which their maximam boredom is high tend to change the task rapidly because of the rapid increase of the boredom. Figure~\ref{fig:sim1totalmoney} shows the total amount of money earned so far by each of the workers. It features a pronounced social inequality, which is caused by two main factors. Firstly, the inherent characteristics of the workers make some of them much more productive, thence earning more money. The second factor is has its origin in the society, more precisely in the production of other individuals; it could be illustrated by the fact that a not particularly skilled individual will be remunerated a lot if he is the only one able to do his job, while two very skilled individuals at the same task will earn much less.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{../figures/taskno.pdf}
+	\caption{Current tasks of the workers as a function of time. Each worker is represented by a different color. The curves of the different individui have a small vertical shift so that all the lines are visible.}
+	\label{fig:sim1task}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{../figures/productivity.pdf}
+	\caption{Productivity of the workers at the tasks they are currently performing. The incontinuities mark a change in the task and correspond to what is shown in Figure~\ref{fig:sim1task}.}
+	\label{fig:sim1prod}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{../figures/boredom.pdf}
+	\caption{Boredom of the workers at the tasks they are currently performing. It can be seen that the maximal boredom is not achieved in most of the cases, since the boredom becomes too high.}
+	\label{fig:sim1boredom}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{../figures/money.pdf}
+	\caption{Salary of the workers as a function of time. A salary of 1 means that a worker is the only one to perform his current task and therefore gets all the money granted to the task.}
+	\label{fig:sim1money}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{../figures/totalmoney.pdf}
+	\caption{Total money earned by each of the workers. It illustrates how the social inequalities are steadily increasing.}
+	\label{fig:sim1totalmoney}
+\end{figure}
 
 The randomness used in generation of the productivities $P_{ij}$ and of the abilities $A_i$ allow the inspection of social inequality. Both quantities have a similar influence, with the difference that the differences in $P_{ij}$ are both task- and worker-specific, while the differences in $A_i$ are worker-specific. Setting the standard deviation of the distributions to zero would result in a model with much less social inequality, which is not the scope of the present model. The larger the standard deviation, the more pronounced the social inequalities will be. Figures XXX and XXX illustrate the influence of the standard deviation on social inequality.
 
-The boredom can be seen as the main reason for choosing a new task. Figures XXX and XXX were obtained by using $\zeta=0$ instead of $\zeta=0.001$ as above. They display a prompt work specialization, illustrated by no task changes after a short equilibration period.
+The boredom can be seen as the main reason for choosing a new task. Figures XXX and XXX were obtained by using $\zeta=0$ instead of $\zeta=0.001$ as above. They display a prompt work specialization, illustrated by no task changes after a short equilibration period. 
 Figures XXX and XXX, on the other hand, were obtained with $\zeta=0.01$. They show the more frequent task changes. The randomness in the generation of $B_{ij}^\textrm{max}$ allows the differenciated sensibility to boredom, which, as mentioned above, has an influence on the rate at which an individual will change tasks.
+Another cause for a change in the task is the evolution of the market, meaning that a worker is more likely to leave his current task if a new individuum just joined the new task, thus lowering the average salary.
 
 The parameter $p_s$ becomes important when task changes become frequent and a smaller value for $p_s$ will result in less frequent task changes. However, changing $p_s$ above a specific threshold will have a negligible influence, as the additional time a worker has to wait after a new task has become more profitable will change only little.
