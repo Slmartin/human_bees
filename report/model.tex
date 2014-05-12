@@ -1,0 +1,49 @@
+%Model
+
+The model describes the development of a bee hive. The colony consists of $M$ bees, denoted with index $i$ ($i=1,2,..,M$). Assume that there are $N$ tasks, denoted by $j$ ($j=1,2,..,N$). These tasks need to be performed in order for the colony to survive. They are associated with dynamic stimuli, denoted with $s_{j}$. The stimuli $s_{j}$, represent a measure of how urgent a specific task $j$ needs to be performed. If a task is not pursued by enough workers of the hive or not in a sufficient rate, the need or the stimulus for the specific task will increase. Now, let $\theta_{ij}$ be the treshold for an individuum $i$ with respect to task $j$. Then the probability for an individuum $i$ to take up task $j$ is given by
+\begin{equation} 
+T_{\theta_{ij}}=\frac{s^{2}_{j}}{s^{2}_{j}+\theta^{2}_{ij}}
+\end{equation}
+One can see that for 
+\begin{center}
+$s_{j} \gg \theta_{ij}$, $T_{\theta_{ij}}$ $\to 1$; \\
+$s_{j}$ = $\theta_{ij} $, $T_{\theta_{ij}}$= 0.5; \\
+$s_{j} \ll \theta_{ij}$,  $T_{\theta_{ij}}$ $\to 0$.
+
+\end{center}
+ So the higher the demand (or stimulus) for a task, the more probable it is for a bee to engages in it. Each individual bee $i$ has a specific threshold $\theta_{ij}$ towards a given task $j$. Those bees $i$, that have a low $\theta_{ij}$ towards a task $j$ will perform this task with a higher probability $T_{\theta_{ij}}$. Moreover, the thresholds vary over time as they reflect the ability of a human bee to perform a specific task. In full analogy to humans, a human bee $i$ becomes better as it performs a specific task $j$ during the time fraction $x_{ij}$("learning"). \textit{Vice versa}, during time fraction ($1-x_{ij}$), in which it does not perform this task, its ability to perform it, slowly decreases ("forgetting"). Let $\phi$ be a fixed parameter associated with the learning process of a task and $\zeta$  fixed parameter associated with the forgetting process of a task. Then the temporal change of $\theta_{ij}$ is described by
+
+\begin{equation} 
+\partial \theta_{ij} = [(1-x_{ij})\phi-x_{ij}\zeta]\Theta(\theta_{ij}-\theta_{min})\Theta(\theta_{max}-\theta_{ij})
+\end{equation}
+where $\Theta(y)$ simply denotes a step-function:
+\begin{equation}
+\Theta(y) = \begin{cases}
+  0,  & \text{if $y \le 0$ }\\
+  1, & \text{if $y > 0.$}
+\end{cases}
+\end{equation}
+$\Theta$ is used to maintain $\theta_{ij}$ within the chosen boundaries [$\theta_{min}, \theta_{max}$]. Note that $\phi$ as well as $\zeta$ assume the same, constant value for each task. The temporal change of $x_{ij}$ is given by
+\begin{equation} 
+\partial x_{ij}= T_{\theta_{ij}}(s_{j})(1-\sum \limits_{i=1}^{M}x_{ij})-px_{ij}
+\end{equation} 
+The first term of the right hand side describes how the fraction of potentially free time $(1-\sum \limits_{i=1}^{M}x_{ij})$ is actually allocated to task performance $j$. The second term describes that a human bee stops performing a task and becomes inactive with probability p. p is identical and constant for all tasks and $1/p$ denotes the average time spent on task $j$. So our model requires a human bee to become inactive before it can continue to pursue a task in the next time interval, if the stimulus is high enough.
+
+Assuming that the demand for each task increases at a fixed rate $\delta$ per unit time, the temporal change of s is given by
+\begin{equation}
+\partial s_{j}=\delta - \frac{\alpha}{N}\sum \limits_{i=1}^{N}x_{ij}
+\end{equation}
+
+where $\alpha$ denotes a scale factor measuring the efficiency of task performance. Note that $\alpha$ assumes the same, constant value for all tasks.
+
+Moreover, we have introduced a model to measure the welfare of the hive population. The rationale of the model can be explained as follows. The more individuals work the better the hive performs. The output of the conducted work grows and the stimuli for the performed tasks decrease as a consequence. Thus, the welfare of a hive is highest when the sum over all stimuli $\sum \limits_{j=1}^{M}s_{j}$ is lowest and we can describe the total welfare $W$ by
+\begin{equation} 
+W= exp\Bigg(-\frac{\sum \limits_{j=1}^{M}s_{j}}{100M}\Bigg).
+\end{equation} 
+
+For the evaluation of $\theta_{ij}$, $s_{j}$ and $x_{ij}$ we have used the Euler-Maruyama method. $z$ $\in$ \{$\theta$, $s$, $x$\} is given by
+\begin{equation}
+z_{k}=z_{k-1} + h*dz_{k-1}+\sqrt{h}\ \sigma \Psi(h)
+\end{equation} 
+, where $k$ denotes the step index, $h$ the stepsize, $\sigma^{2}$ the variance and $\Psi(h)$ is a centred gaussian stochastic process. This method is used in mathematics for the approximate numerical solution of stochastic differential equations. It is appropriate for our model as it introduces a degree of stochastic variation accounting for the slightly differing environment of each bee.
+

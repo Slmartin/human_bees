@@ -1,0 +1,105 @@
+\documentclass[11pt]{article}
+\usepackage{geometry}                
+\geometry{letterpaper}                   
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\usepackage{natbib}
+\usepackage{amssymb, amsmath}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+%\title{Human Bees}
+%\author{Julien Schroeter, Martin Slusarczyk, Alain Vaucher}
+%\date{date} 
+
+\begin{document}
+
+
+\input{cover}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section*{Agreement for free-download}
+\bigskip
+
+
+\bigskip
+
+
+\large We hereby agree to make our source code for this project freely available for download from the web pages of the SOMS chair. Furthermore, we assure that all source code is written by ourselves and is not violating any copyright restrictions.
+
+\begin{center}
+
+\bigskip
+
+\bigskip
+\bigskip
+\bigskip
+
+\large Julien Schroeter
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+\large Martin Slusarczyk
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+\large Alain Vaucher
+
+
+
+
+
+\end{center}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% IMPORTANT
+% you MUST include the ETH declaration of originality here; it is available for download on the course website or at http://www.ethz.ch/faculty/exams/plagiarism/index_EN; it can be printed as pdf and should be filled out in handwriting
+
+
+%%%%%%%%%% Table of content %%%%%%%%%%%%%%%%%
+
+\tableofcontents
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\section{Abstract}
+
+\section{Individual contributions}
+
+\section{Introduction and Motivations}
+
+\section{Description of the Model}
+\include{Model}
+
+\include{alternativeModel}
+
+\section{Implementation}
+
+\section{Simulation Results and Discussion}
+\include{results}
+
+\section{Summary and Outlook}
+
+\section{References}
+
+
+
+
+
+
+\end{document}  
