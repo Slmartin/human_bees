@@ -1,12 +1,16 @@
-% BibTeX bibliography style `jacs' for J. Amer. Chem. Soc.
-	% version 0.99a for BibTeX versions 0.99a or later, LaTeX version 2.09.
-	% Copyright (C) 1985, all rights reserved.
-	% Copying of this file is authorized only if either
-	% (1) you make absolutely no changes to your copy, including name, or
-	% (2) if you do make changes, you name it something other than
-	% btxbst.doc, plain.bst, unsrt.bst, alpha.bst, and abbrv.bst.
-	% This restriction helps ensure that all standard styles are identical.
-	% The file btxbst.doc has the documentation for this style.
+% BibTeX bibliography style `jpc' for J. Phys. Chem.
+%   8/9/93 Joerg-R. Hill
+%   no output of 'title' for 'article', 'book', 'inbook', 'incollection'
+%   no output of 'note' except in 'unpublished'
+%
+% version 0.99a for BibTeX versions 0.99a or later, LaTeX version 2.09.
+% Copyright (C) 1985, all rights reserved.
+% Copying of this file is authorized only if either
+% (1) you make absolutely no changes to your copy, including name, or
+% (2) if you do make changes, you name it something other than
+% btxbst.doc, plain.bst, unsrt.bst, alpha.bst, and abbrv.bst.
+% This restriction helps ensure that all standard styles are identical.
+% The file btxbst.doc has the documentation for this style.
 %
 %	Fixed article, book references	11/10/92---CLF
 
@@ -37,13 +41,14 @@ ENTRY
   {}
   { label }
 
-INTEGERS { output.state before.all mid.sentence after.sentence after.block }
+INTEGERS { output.state before.all mid.sentence after.sentence after.block after.item author.or.editor }
 
 FUNCTION {init.state.consts}
 { #0 'before.all :=
   #1 'mid.sentence :=
   #2 'after.sentence :=
   #3 'after.block :=
+  #4 'after.item :=
 }
 
 FUNCTION {add.semicolon}
@@ -58,7 +63,6 @@ STRINGS { s t }
 
 FUNCTION {output.nonnull}
 { 's :=
-
   output.state mid.sentence =
     { ", " * write$ }
     { output.state after.block =
@@ -68,10 +72,14 @@ FUNCTION {output.nonnull}
 	}
 	{ output.state before.all =
 	    'write$
-	    { add.period$ " " * write$ }
-	  if$
-	}
-      if$
+	    { output.state after.item =
+		{ " " * write$ }
+	      { add.period$ " " * write$ }
+	    if$
+	    }
+        if$
+      }
+	if$
       mid.sentence 'output.state :=
     }
   if$
@@ -127,6 +135,17 @@ FUNCTION {new.sentence}
   if$
 }
 
+FUNCTION {new.item}
+{ duplicate$ empty$
+    { skip$ }
+    { output.state mid.sentence =
+        { after.item 'output.state := }
+        { skip$ }
+      if$
+    }
+  if$
+}
+
 FUNCTION {not}
 {   { #0 }
     { #1 }
@@ -177,6 +196,13 @@ FUNCTION {new.sentence.checkb}
   if$
 }
 
+FUNCTION {new.item.checka}
+{ empty$
+    'skip$
+    'new.item
+  if$
+}
+
 FUNCTION {field.or.null}
 { duplicate$ empty$
     { pop$ "" }
@@ -206,20 +232,24 @@ FUNCTION {format.names}
   s num.names$ 'numnames :=
   numnames 'namesleft :=
     { namesleft #0 > }
-    { s nameptr "{ff~}{vv~}{ll}{, jj}" format.name$ 't :=
+    { s nameptr "{vv~}{ll}{, jj}{, f}." format.name$ 't :=
       nameptr #1 >
 	{ namesleft #1 >
+	  { author.or.editor #1 =
+	    { "; " * t * }
 	    { ", " * t * }
-	    { numnames #2 >
-		{ "," * }
-		'skip$
-	      if$
-	      t "others" =
-		{ " et~al." * }
-		{ " and " * t * }
-	      if$
+        if$
+	  }
+	  { t "others" =
+	    { " et~al." * }
+	    { author.or.editor #1 =
+	      { "; " * t * }
+	      { ", " * t * }
+          if$
 	    }
 	  if$
+        }
+      if$
 	}
 	't
       if$
@@ -232,17 +262,19 @@ FUNCTION {format.names}
 FUNCTION {format.authors}
 { author empty$
     { "" }
-    { author format.names }
+    { #1 'author.or.editor :=
+      author format.names }
   if$
 }
 
 FUNCTION {format.editors}
 { editor empty$
     { "" }
-    { editor format.names
+    { #2 'author.or.editor :=
+	editor format.names
       editor num.names$ #1 >
-	{ ", Ed." * }
 	{ ", Eds." * }
+	{ ", Ed." * }
       if$
     }
   if$
@@ -453,7 +485,7 @@ FUNCTION {format.in.booktitle.ed}
     { "" }
     { editor empty$
         { "In " booktitle emphasize * }
-        { "In " booktitle emphasize * ", " * format.editors * }
+        { "In " booktitle emphasize * "; " * format.editors * }
       if$
     }    
   if$
@@ -583,9 +615,9 @@ FUNCTION {format.incoll.inproc.crossref}
 
 FUNCTION {article}
 { output.bibitem
-  format.authors "author" output.check
+  format.authors "author" output.check new.item
   crossref missing$
-    { journal emphasize "journal" output.check
+    { journal emphasize "journal" output.check new.item
       format.date "year" output.check
       format.vol.num.pages output
     }
@@ -593,15 +625,14 @@ FUNCTION {article}
       format.pages output
     }
   if$
-  note output
   fin.entry
 }
 
 FUNCTION {book}
 { output.bibitem
   author empty$
-    { format.editors "author and editor" output.check }
-    { format.authors output.nonnull
+    { format.editors "author and editor" output.check new.item }
+    { format.authors output.nonnull new.item
       crossref missing$
 	{ "author and editor" editor either.or.check }
 	'skip$
@@ -609,49 +640,37 @@ FUNCTION {book}
     }
   if$
   format.btitle "title" output.check
-  new.block
   crossref missing$
     { format.bvolume output
-      new.block
       format.number.series output
-      new.sentence
-      publisher "publisher" output.check
-      address output
+      new.block
+      format.pub.address "publisher" output.check
     }
-    { new.block
-      format.book.crossref output.nonnull
-    }
+    { format.book.crossref output.nonnull }
   if$
   format.edition output
   format.bdate "year" output.check
   new.block
-  note output
   fin.entry
 }
 
 FUNCTION {booklet}
 { output.bibitem
-  format.authors output
+  format.authors output new.item
   format.title "title" output.check
   howpublished address new.block.checkb
   howpublished output
   address output
   format.date output
   new.block
-  note output
   fin.entry
 }
 
 FUNCTION {inbook}
 { output.bibitem
   author empty$
-    { format.editors "author and editor" output.check }
-    { format.authors output.nonnull
-%      crossref missing$
-%	{ "author and editor" editor either.or.check }
-%	'skip$
-%      if$
-    }
+    { format.editors "author and editor" output.check new.item }
+    { format.authors output.nonnull new.item }
   if$
   format.in.booktitle.ed "title" output.check
   new.block
@@ -672,42 +691,34 @@ FUNCTION {inbook}
   if$
   format.edition output
   new.block
-  note output
   fin.entry
 }
 
 FUNCTION {incollection}
 { output.bibitem
-  format.authors "author" output.check
-  new.block
-  format.title "title" output.check
-  new.block
+  format.authors "author" output.check new.item
   crossref missing$
-    { format.in.ed.booktitle "booktitle" output.check
+    { format.in.booktitle.ed "booktitle" output.check
       format.bvolume output
       format.number.series output
-      format.chapter.pages output
-      new.sentence
-      publisher "publisher" output.check
-      address output
+      new.block
+      format.pub.address "publisher" output.check
       format.edition output
       format.bdate "year" output.check
+	new.block
+      format.chapter.pages output
     }
     { format.incoll.inproc.crossref output.nonnull
       format.chapter.pages output
     }
   if$
   new.block
-  note output
   fin.entry
 }
 
 FUNCTION {inproceedings}
 { output.bibitem
-  format.authors "author" output.check
-  new.block
-  format.title "title" output.check
-  new.block
+  format.authors "author" output.check new.item
   crossref missing$
     { format.in.ed.booktitle "booktitle" output.check
       format.bvolume output
@@ -732,7 +743,6 @@ FUNCTION {inproceedings}
     }
   if$
   new.block
-  note output
   fin.entry
 }
 
@@ -740,6 +750,7 @@ FUNCTION {conference} { inproceedings }
 
 FUNCTION {manual}
 { output.bibitem
+  format.title "title" output.check new.sentence
   author empty$
     { organization empty$
 	'skip$
@@ -748,10 +759,8 @@ FUNCTION {manual}
 	}
       if$
     }
-    { format.authors output.nonnull }
+    { format.authors output.nonnull new.item }
   if$
-  new.block
-  format.btitle "title" output.check
   author empty$
     { organization empty$
 	{ address new.block.checka
@@ -768,51 +777,43 @@ FUNCTION {manual}
   format.edition output
   format.date output
   new.block
-  note output
   fin.entry
 }
 
 FUNCTION {mastersthesis}
 { output.bibitem
-  format.authors "author" output.check
-  new.block
-  format.title "title" output.check
-  new.block
+  format.authors "author" output.check new.item
+  format.title "title" output.check new.item
   "Master's thesis" format.thesis.type output.nonnull
   school "school" output.check
   address output
   format.date "year" output.check
   new.block
-  note output
   fin.entry
 }
 
 FUNCTION {misc}
 { output.bibitem
-  format.authors output
-  title howpublished new.block.checkb
   format.title output
-  howpublished new.block.checka
+  new.sentence
+  format.authors output new.item
+  howpublished new.item.checka
   howpublished output
   format.date output
   new.block
-  note output
   fin.entry
   empty.misc.check
 }
 
 FUNCTION {phdthesis}
 { output.bibitem
-  format.authors "author" output.check
-  new.block
-  format.btitle "title" output.check
-  new.block
+  format.authors "author" output.check new.item
+  format.btitle "title" output.check new.item
   "PhD thesis" format.thesis.type output.nonnull
   school "school" output.check
   address output
   format.date "year" output.check
   new.block
-  note output
   fin.entry
 }
 
@@ -820,7 +821,7 @@ FUNCTION {proceedings}
 { output.bibitem
   editor empty$
     { organization output }
-    { format.editors output.nonnull }
+    { format.editors output.nonnull new.item }
   if$
   new.block
   format.btitle "title" output.check
@@ -847,31 +848,25 @@ FUNCTION {proceedings}
     }
   if$
   new.block
-  note output
   fin.entry
 }
 
 FUNCTION {techreport}
 { output.bibitem
-  format.authors "author" output.check
-  new.block
-  format.title "title" output.check
-  new.block
+  format.authors "author" output.check new.item
+  format.title "title" output.check new.item
   format.tr.number output.nonnull
   institution "institution" output.check
   address output
   format.date "year" output.check
   new.block
-  note output
   fin.entry
 }
 
 FUNCTION {unpublished}
 { output.bibitem
-  format.authors "author" output.check
-  new.block
-  format.title "title" output.check
-  new.block
+  format.authors "author" output.check new.item
+% format.title "title" output.check new.item
   note "note" output.check
   format.date output
   fin.entry
@@ -993,3 +988,4 @@ FUNCTION {end.bib}
 }
 
 EXECUTE {end.bib}
+
