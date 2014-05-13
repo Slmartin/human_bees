@@ -114,6 +114,7 @@ single other bee have been considered, since for the other case the
 recovery is immediate. Second, every bee is reinitialized. As it can
 be observed in Fig.\ref{fig:figure5}, the recovery time is less significant
 in this second case, since the stimuli are more important; the increasing
+
 of the stimuli can be explained because no bee is active. Finally,
 every bee working on the same task, for example task 1, are reinitialized.
 In this case we need to split the runs: the group of workers performing
@@ -137,7 +138,7 @@ where recovery can be observed.
 
 The assumption that the colony size does not evolve in time is an
 important simplification of the reality. Therefore, we have attempted
-to extend the previous model to a more dynamical one. 
+to extend the previous model to a more dynamical one.
 
 
 \subsubsection{Model Extension}
@@ -149,19 +150,18 @@ differential equation solver changes frequently; to solve this problem
 a more dynamical solver is required. Second, the number of bees is
 one of the predominant factors influencing the computational intensity
 of the simulation; N should therefore reach some sort of dynamical
-equilibrium or stay into a given range. And finally it is more complicated
+equilibrium or stay into a given range. And finally, it is more complicated
 to keep the full history of the variables.
 
-About the extension, on one hand, a probability of birth of a new
-bee is introduced which is linearly dependent to the welfare of the
-society. This seems to be a natural choice, since the welfare was
+About the extension, on one hand, a probability of birth of a
+bee was introduced which dependent linearly on the welfare of the
+colony. This appears to be a natural choice, since the welfare was
 defined as the ability of the society to fulfill all its needs. On
 the other hand, a probability of death was also introduced which is
-inversely proportional to the welfare of the society. This stochastic
+inversely proportional to the welfare. This stochastic
 approach allows to get a more realistic model, since birth can occur
 even in difficult moments. Those are the main changes, the other ones
-are mainly technical and we'll not be presented.
-
+are mainly technical and will not be presented in this report.
 
 \subsubsection{First results}
 
@@ -211,8 +211,7 @@ new bees.
 
 \subsubsection{Main result}
 
-After a few runs of our new dynamical model, we can start making a
-few observations. The dynamics of the $\theta_{ij}$ are hard to capture,
+After a few runs of our new dynamical model, we can start making some observations. The dynamics of the $\theta_{ij}$ are hard to capture,
 because of the complexity of the process. However, simple observations
 can be made by considering the $s_{j}$ and the N(t) . First, the
 number of bees increases drastically at the beginning of the simulation
@@ -227,7 +226,7 @@ the above mentioned disturbance does not occur.
 It is important to notice that the cycles for the stimuli have been
 observed for most of the runs, however the nice welfare cycles can
 only be observe if the phase difference between the two task is not
-to important. 
+to important.
 
 \begin{figure}[ht!]
 \begin{centering}
@@ -241,7 +240,6 @@ to important.
 \par\end{centering}
 
 \end{figure}
-
 
 
 
