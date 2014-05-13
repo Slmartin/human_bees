@@ -2,7 +2,7 @@
 
 \subsection{Theraulaz Model}
 \subsubsection*{Division of labour}
-Our model is able to simulate the divison of labour. In Fig.\ref{fig:thetax} on the left we see the development of the thresholds $\theta_{ij}$ as a function of time. For each individuum $i$ there is one line with respect to each task $j$. Here, we have used N=5 bees and M=2 tasks, amounting to 10 depicted lines - one line for each task for each bee. We can see that in the beginning the values of $\theta_{ij}$ oscillate and then assume a steady state from approximately $t=3000$ on. In this steady state, exactly five lines assume the constant maximum value $\theta_{ij}=1000$ and five lines assume the constant minimum value $\theta_{ij}=0$. This means that the five bees specialize in exactly one task and keep performing this single task in the steady state.
+The Theraulaz model is able to simulate the divison of labour. In Fig.\ref{fig:thetax} on the left we see the development of the thresholds $\theta_{ij}$ as a function of time. For each individuum $i$ there is one line with respect to each task $j$. Here, we have used N=5 bees and M=2 tasks, amounting to 10 depicted lines - one line for each task for each bee. We can see that in the beginning the values of $\theta_{ij}$ oscillate and then assume a steady state from approximately $t=3000$ on. In this steady state, exactly five lines assume the constant maximum value $\theta_{ij}=1000$ and five lines assume the constant minimum value $\theta_{ij}=0$. This means that the five bees specialize in exactly one task and keep performing this single task in the steady state.
 
 \begin{figure}[ht!]
 	\centering
@@ -27,13 +27,13 @@ Our model enables the description of the performance of the bee hive. In Fig.\re
 The functions can be interpreted as follows. The development of the stimuli can be explained by the fact that it takes time for the bees to reach an equilibrium state -- the state where all bees assume exactly one task. Up to this point, the needs of the hive are not sufficiently satisfied. Hence, the stimuli increase. Over time, the bees become more specialized towards a specific task and the stimuli go through a maximum to decrease subsequently. This is an expression that the tasks are performed with a sufficient efficiency. The individual development of the thresholds and stimuli is governed by how fast the bees manage to specialize themselves and satisfy the need for the respective task. In the presented case, for example, one can look at the stimulus and the threshold value which converge last to their equilibrium value - stimulus 2 and threshold $\theta_{22}$. Stimulus 2 decreases slower than stimulus 1, so the need to perform 2 is greater for a longer period of time compared to task 1. This is reflected in the curve of $\theta_{22}$. It remains low as long as stimulus 2 is high and only then converges to 1000. This means that bee 2 engages as long in task 2 as stimulus 2 remains high. Thereafter it becomes inactive with respect to task 2 and is thus the last bee to be fully specialized. The welfare is connected to the sum of the stimuli. The stimuli are high when the hive need that specific tasks need to be performed in order for the hive to survive. Whenever a task is not performed, or to an insufficient extent, the respective stimulus is high. High stimuli thus reflect a poor state. Vice versa, low stimuli show that the hive performs well. Therefore, we have introduced the welfare model which is based on the sum of the stimuli. When the sum of the stimuli is low, indicating a good performance of the hive, the welfare increases. Hence, our model is able to describe how well specific tasks are performed and to measure the total welfare of a population over time.
 
 \subsubsection{Perturbations}
-The Theraulaz Model has been analyzed with respect to an isolated society. It has been used to describe domestic characteristics of a society, such as division of labour and welfare. However, we also want to investigate how the model can be used to describe external disturbances, where the work environment is changed or individuals can get killed (or are otherwise removed). Therefore, we have studied the response of the model with respect to perturbations such as reinitializing either a random bee, or every bee or every bee perform a same task.
+The Theraulaz Model has been analyzed with respect to an isolated society. It has been used to describe domestic characteristics of a society, such as division of labour and welfare. However, we also want to investigate how the model can be used to describe external perturbations, where the work environment is changed or individuals can get killed (or are otherwise removed). Therefore, we have studied the response of the model with respect to perturbations such as reinitializing either a random bee, or every bee or every bee perform a same task.
 In the following, we will consider the special case in which the colony consists of five bees and two tasks. Before starting a deep analysis, it is important to know that for this specific setup the bees usually reach an equilibrium state in which two bees work on a task and the three others work on the other task. 
 
 \paragraph{Reinitializing one bee}
 Let us initially assume that the model has reached an equilibrium before being subject to a perturbation. We will start with a simple case: reset the associated features $x_{ij}$ and $\theta_{ij}$ of a single bee. Here, we need to consider two cases. First, the removed bee was working on the task performed by only a single other bee. Second, the removed bee was performing its task together with two other bees.
 
-In Fig.\ref{fig:figure1} $\theta_{ij}$ and $x_{ij}$ of all bees are shown as a function of time. During this time, we have randomly reinitiated a single bee at approximately 2300, 3900 and 7200 iterations. This can be seen at the discontinuities for the corresponding $\theta_{ij}$ and $x_{ij}$ graphs. To study case 1, we can look at the perturbation at 3900 iterations, as indicated by an arrow. Here, bee three was reinitialized, thus $x_{i=3,j}=0$ and $\theta_{i=3,j}=500$. As one can see the $x_{ij}$ and $\theta_{ij}$ values for all other bees remain unaffected. The $\theta_{i=3,j}$ and $x_{i=3,j}=0$ values of bee three are reset but converge to their initital values again. This means that for case one the system is robust in the sense that the same equilibrium is reached as prior to the disturbance. The unaffected bees continue to work and the reinitialized bee returns to its initial work again.
+In Fig.\ref{fig:figure1} $\theta_{ij}$ and $x_{ij}$ of all bees are shown as a function of time. During this time, we have randomly reinitiated a single bee at approximately 2300, 3900 and 7200 iterations. This can be seen at the discontinuities for the corresponding $\theta_{ij}$ and $x_{ij}$ graphs. To study case 1, we can look at the perturbation at 3900 iterations, as indicated by an arrow. Here, bee three was reinitialized, thus $x_{i=3,j}=0$ and $\theta_{i=3,j}=500$. As one can see the $x_{ij}$ and $\theta_{ij}$ values for all other bees remain unaffected. The $\theta_{i=3,j}$ and $x_{i=3,j}=0$ values of bee three are reset but converge to their initital values again. This means that for case one the system is robust in the sense that the same equilibrium is reached as prior to the perturbation. The unaffected bees continue to work and the reinitialized bee returns to its initial work again.
 
 \begin{figure}[ht!]
 	\centering
@@ -56,12 +56,12 @@ In the second case, there are still two other workers left to do the task initia
 
 \par\end{center}
 
-Let us look at the changes in stimuli caused by these two disturbances. In Fig.\ref{fig:figure3}, we observe that there is an immediate recovery because the two other bees instantaneously step up the stimulus does not behave the same way as prior to the disturbance.
+Let us look at the changes in stimuli caused by these two perturbations. In Fig.\ref{fig:figure3}, we observe that there is an immediate recovery because the two other bees instantaneously step up the stimulus does not behave the same way as prior to the perturbation.
 In fact, Fig.\ref{fig:figure4} confirms that the mean and the variance of the concerned stimulus increase significantly. One of the reasons behind this change is that the fulfillment of a single job by three different bees is much more stable than when it is performed by only two bees. In the other case we can observe a longer recovery time, after this the concerned stimulus goes back to its initial state; therefore no increase in variance or in mean is perceived. Furthermore, one can notice that the recovery time is bigger than the time that was needed at first by the model to reach its initial equilibrium. This approach of the recovery time will be investigated more deeply in the next section.
 
 \begin{figure}[ht!]
 \begin{centering}
-\includegraphics[scale=0.4]{figures/Figure7.png}\caption{Impact of disturbance on stimulus.}
+\includegraphics[scale=0.4]{figures/Figure7.png}\caption{Impact of perturbation on stimulus.}
 \label{fig:figure3}
 \par\end{centering}
 
@@ -94,18 +94,18 @@ In fact, Fig.\ref{fig:figure4} confirms that the mean and the variance of the co
 \label{fig:figure5}
 \par\end{centering}
 
-\caption{Mean recovery time and associated standard deviation for diverse disturbances. The plot is based on more than 100 runs.}
+\caption{Mean recovery time and associated standard deviation for diverse perturbations. The plot is based on more than 100 runs.}
 
 
 \end{figure}
 
 \par\end{center}
 
-A straightforward measure for the intensity of a disturbance could
+A straightforward measure for the intensity of a perturbation could
 be to consider the time of instability generated by this event, or
 - in the terms of our model - the time needed to reach low stimuli
 again. For this purpose, many simulations have been run to estimate
-the average recovery time for various disturbances. Four different
+the average recovery time for various perturbations. Four different
 cases have been explored:
 
 First, a single bee is reset, as seen in the previous section; note
@@ -131,7 +131,7 @@ involved implies a faster recovery and, on the other hand, for a given
 number of bees, a greater number of tasks implies a slower recovery.
 
 Therefore, this method is a good way to quantify the intensity of
-some disturbance. However this approach is limited to simple cases
+some perturbation. However this approach is limited to simple cases
 where recovery can be observed.
 
 \subsection{Dynamical Population within the Theraulaz Model}
@@ -221,7 +221,7 @@ the welfare is high many new bees are introduced. Such bees have medium
 thresholds and low $x_{ij}$ - to many of those is going to increase
 the stimulus and the instability of the colony. On the other side,
 if the wealth is low the number of bees introduced are low and then
-the above mentioned disturbance does not occur.
+the above mentioned perturbation does not occur.
 
 It is important to notice that the cycles for the stimuli have been
 observed for most of the runs, however the nice welfare cycles can
