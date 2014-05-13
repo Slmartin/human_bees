@@ -44,7 +44,7 @@ W= exp\Bigg(-\frac{\sum \limits_{j=1}^{M}s_{j}}{100M}\Bigg).
 
 For the evaluation of $\theta_{ij}$, $s_{j}$ and $x_{ij}$ we have used the Euler-Maruyama method. $z$ $\in$ \{$\theta$, $s$, $x$\} is given by
 \begin{equation}
-z_{k}=z_{k-1} + h*dz_{k-1}+\sqrt{h}\ \sigma \Psi(h)
+z_{k}=z_{k-1} + h*dz_{k-1}+\sqrt{h}\ \sigma \Psi(h),
 \end{equation} 
-, where $k$ denotes the step index, $h$ the stepsize, $\sigma^{2}$ the variance and $\Psi(h)$ is a centred gaussian stochastic process. This method is used in mathematics for the approximate numerical solution of stochastic differential equations. It is appropriate for our model as it introduces a degree of stochastic variation accounting for the slightly differing environment of each bee.
+where $k$ denotes the step index, $h$ the stepsize, $\sigma^{2}$ the variance and $\Psi(h)$ is a centred gaussian stochastic process. This method is used in mathematics for the approximate numerical solution of stochastic differential equations. It is appropriate for our model as it introduces a degree of stochastic variation accounting for the slightly differing environment of each bee.
 
