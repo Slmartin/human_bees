@@ -272,35 +272,35 @@ The PBM model is quite robust and a broad range of parameters deliver sensible r
 
 Parameters for a standard simulation could be the following: $N=7$, $M=3$, $\lambda=0.01$, $\kappa=0.003$, $\zeta=0.001$, $\eta=0.0003$, $p_s=0.003$, $\Delta t=1$, $A_\mu=3$, $A_\sigma=0.7$, $P_\mu=2$, $P_\sigma=0.7$, $B_\mu=0.5$, $B_\sigma=0.15$. Figure~\ref{fig:sim1task} shows the time evolution of the tasks performed by the different workers. It allows to see the dynamics of work allocation. Figures~\ref{fig:sim1prod}, \ref{fig:sim1money} and \ref{fig:sim1boredom} allow to understand the motivation for choosing another task. Figure~\ref{fig:sim1prod} shows the evolution of the productivity at the current tasks and explains why workers performing the same task do not earn the same amount of money, which can be seen in Figure~\ref{fig:sim1money}. Figure~\ref{fig:sim1boredom} displays the evolution of the boredom. It illustrates that a too high boredom can induce a change of task even if the new task is less paid than the previous one. A general observation is that people working on tasks at which their maximam boredom is high tend to change the task rapidly because of the rapid increase of the boredom. Figure~\ref{fig:sim1totalmoney} shows the total amount of money earned so far by each of the workers. It features a pronounced social inequality, which is caused by two main factors. Firstly, the inherent characteristics of the workers make some of them much more productive, thence earning more money. The second factor has its origin in the society, more precisely in the production of other individuals; it could be illustrated by the fact that a not particularly skilled individual will be remunerated a lot if he is the only one able to do his job, while two very skilled individuals at the same task will earn much less.
 
-\begin{figure}[hp!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/taskno.pdf}
 	\caption{Current tasks of the workers as a function of time. Each worker is represented by a different color. The curves of the different individui have a small vertical shift so that all the lines are visible.}
 	\label{fig:sim1task}
 \end{figure}
 
-\begin{figure}[hp!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/productivity.pdf}
 	\caption{Productivity of the workers at the tasks they are currently performing. The incontinuities mark a change in the task and correspond to what is shown in Figure~\ref{fig:sim1task}.}
 	\label{fig:sim1prod}
 \end{figure}
 
-\begin{figure}[hp!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/boredom.pdf}
 	\caption{Boredom of the workers at the tasks they are currently performing. It can be seen that the maximal boredom is not achieved in most of the cases, since the boredom becomes too high.}
 	\label{fig:sim1boredom}
 \end{figure}
 
-\begin{figure}[hp!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/money.pdf}
 	\caption{Salary of the workers as a function of time. A salary of 1 means that a worker is the only one to perform his current task and therefore gets all the money granted to the task.}
 	\label{fig:sim1money}
 \end{figure}
 
-\begin{figure}[hp!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/totalmoney.pdf}
 	\caption{Total money earned by each of the workers. It illustrates how the social inequalities are steadily increasing, and the hierarchy of the society stays the same over during the simulation.}
@@ -309,14 +309,14 @@ Parameters for a standard simulation could be the following: $N=7$, $M=3$, $\lam
 
 The randomness used in generation of the productivities $P_{ij}$ and of the abilities $A_i$ allow the inspection of social inequality. Both quantities have a similar influence, with the difference that the differences in $P_{ij}$ are both task- and worker-specific, while the differences in $A_i$ are worker-specific. Setting the standard deviation of the distributions to zero would result in a model with much less social inequality, which is not the scope of the present model. The larger the standard deviation, the more pronounced the social inequalities will be. Figures~\ref{fig:sd1} and \ref{fig:sd2} illustrate the influence of the standard deviation used for the generation of the abilities and the initial productivities on social inequality.
 
-\begin{figure}[hp!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/sd1.pdf}
 	\caption{Total money earned by each of the workers. But for $P_\sigma=0.2$ and $A_\sigma=0.2$, the same parameters as in Figure~\ref{fig:sim1totalmoney} were used. The social inequalities remain narrow and do not increase a lot with time.}
 	\label{fig:sd1}
 \end{figure}
 
-\begin{figure}[hp!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/sd2.pdf}
 	\caption{Total money earned by each of the workers. But for $P_\sigma=1.0$ and $A_\sigma=1.4$, the same parameters as in Figure~\ref{fig:sim1totalmoney} were used. The social gap increases a lot and some workers earn several times the salary of other individui.}
@@ -329,28 +329,28 @@ The randomness in the generation of $B_{ij}^\textrm{max}$ allows the differencia
 
 Another cause for a change in the task is the evolution of the market, meaning that a worker is more likely to leave his current task if a new individuum just joined the new task, thus lowering the average salary.
 
-\begin{figure}[hp!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/noboredom.pdf}
 	\caption{Chosen task number as a function of time. The same parameters as in Figure~\ref{fig:sim1task} were used but for $\zeta=0$, which implies that the workers do not experience any boredom at all. It shows an early change of task for two of the workers, after which the system does not change anymore.}
 	\label{fig:noboredom}
 \end{figure}
 
-\begin{figure}[hp!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/moreboredom1.pdf}
 	\caption{Chosen task number with $\zeta=0.01$ and $B_\mu=1.5$. All the other parameters are the same ones as used for Figure~\ref{fig:sim1task}. The very high rate of task changes is mainly due to the high average boredom, which is displayed in Figure~\ref{fig:moreboredom2}.}
 	\label{fig:moreboredom1}
 \end{figure}
 
-\begin{figure}[hp!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/moreboredom2.pdf}
 	\caption{Boredom experienced by the workers at their current task for high maximal boredoms and a high fatigability.}
 	\label{fig:moreboredom2}
 \end{figure}
 
-\begin{figure}[hp!]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.9\textwidth]{figures/moreboredom3.pdf}
 	\caption{Total amount of money earned by the workers in the case where the fatigability and the maximal boredoms are high. Despite more fluctuations in comparison with Figure~\ref{fig:sim1totalmoney}, the social inequalities are still pronounced.}
