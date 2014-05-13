@@ -9,6 +9,10 @@ function main
     N = 5;                     %Number of bees
     M = 2;                      %Number of tasks
 
+    %Set seed for random number generation
+    RandStream.setGlobalStream(RandStream('mt19937ar','seed',42))
+    RandStream.getGlobalStream()
+    
     theta = ones(N,M)*500;      %response treshold
     x = ones(N,M)*0.1;          %fraction of time spent by individual i on task j
     s = ones(1,M);              %stimulus intensity for task j

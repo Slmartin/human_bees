@@ -3,6 +3,10 @@
 function recovery_time
 global M N phi zeta theta_min theta_max delta alpha p sigma beta deads Somme Sommey task recovery_time count_bee
     
+%Set seed for random number generation
+RandStream.setGlobalStream(RandStream('mt19937ar','seed',42))
+RandStream.getGlobalStream()
+
     VectorRecovery_task3=[];
     VectorRecovery_task2=[];
     for we=1:200

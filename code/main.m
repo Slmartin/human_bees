@@ -1,6 +1,9 @@
 %---------------------------------
 % Initialization of the variables
 
+%Set seed for random number generation
+RandStream.setGlobalStream(RandStream('mt19937ar','seed',42))
+RandStream.getGlobalStream()
 
 function main
     global M N phi zeta theta_min theta_max delta alpha p sigma beta
