@@ -33,9 +33,7 @@ In the following, we will consider the special case in which the colony consists
 \subsubsection{Reinitializing one bee}
 Let us initially assume that the model has reached an equilibrium before being subject to a perturbation. We will start with a simple case: reset the associated features $x_{ij}$ and $\theta{ij}$ of a single bee. Here, we need to consider two cases. First, the removed bee was working on the task performed by only a single other bee. Second, the removed bee was performing its task together with two other bees.
 
-In Fig.\ref{fig:figure1} $\theta{ij}$ and $x_{ij}$ of all bees are shown as a function of time. During this time, we have randomly reinitiated a single bee at approximately 2300, 3900 and 7200 iterations. This can be seen at the discontinuities for the corresponding $\theta{ij}$ and $x_{ij}$ graphs. To study case 1, we can look at the perturbation at 3900 iterations, as indicated by an arrow. Here, bee three was reinitialized. As one can see the $x_{ij}$ values for all other bees remain unaffected. The $\theta{i=3,j}$ values of bee three are reset to 500 but immediately after the perturbation converge to their initial values. This means that bee three
-
-The loss of one of the two workers of a task increases instantaneously the corresponding stimulus. As no other bee intervenes, our bee goes back to her task and the same equilibrium is reached as prior the disturbance. 
+In Fig.\ref{fig:figure1} $\theta{ij}$ and $x_{ij}$ of all bees are shown as a function of time. During this time, we have randomly reinitiated a single bee at approximately 2300, 3900 and 7200 iterations. This can be seen at the discontinuities for the corresponding $\theta{ij}$ and $x_{ij}$ graphs. To study case 1, we can look at the perturbation at 3900 iterations, as indicated by an arrow. Here, bee three was reinitialized, thus $x_{i=3,j}=0$ and $\theta{i=3,j}=500$. As one can see the $x_{ij}$ and $\theta{ij}$ values for all other bees remain unaffected. The $\theta{i=3,j}$ and $x_{i=3,j}=0$ values of bee three are reset but converge to their initital values again. This means that for case one the system is robust in the sense that the same equilibrium is reached as prior to the disturbance. The unaffected bees continue to work and the reinitialized bee returns to its initial work again.
 
 \begin{figure}[ht!]
 	\centering
@@ -44,6 +42,9 @@ The loss of one of the two workers of a task increases instantaneously the corre
 	\label{fig:figure1}
 \end{figure}
 
+For the second case, we can look at the reinitialization taking place at 2300 iterations. In this case a bee ($i=1$) was removed, which was working together with two other bees ($i=2,3$) on a single task. We observe that $x_{i=2,3,j}$ increase after removing bee one. The corresponding values for bee 4 and 5 remain unaffected, however. Subsequently, the reinitialized bee
+
+This implies that the former partners of bee 1 step up and work more intensively.
 
 In the second case, there are still two other workers left to do the task initially performed by our reinitialized bee. These two bees instantaneously step up and start working more than they used to in order to compensate the loss induced by the reset. Since each task is now carried out by two bees, our reset bee is not inclined to work anymore. The given stimuli are not sufficiently high. In this case, we reach a new equilibrium, where each task is performed by two bees and the fifth bee is inactive. This transition from one equilibrium to another one has different consequences which will be examined in the following.
 
