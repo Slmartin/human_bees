@@ -1,0 +1,61 @@
+\newcommand{\rnd}[2]{\mathrm{rnd}(#1,#2)}
+
+
+\subsection{The PBM Model}
+
+\subsubsection*{Introduction}
+In order to be able to investigate the influence of money and social inequalities, we derived a model from the model proposed by Theraulaz et al.\ presented above. We name this model the PBM model in order to underline the high importance that Productivity, Boredom and Money play in the model.
+
+\subsubsection*{Basic principle}
+The PBM model describes the dynamics of the work allocation of different taks in a society of workers. 
+A worker is not equally skilled for all of the tasks; we define his \emph{productivity} for a task as the amount of work (or amount of produced units) in a given time. 
+The productivity of a worker for a given tasks evolves with time, depending on whether he is actually performing the task or not, which reproduces learning and forgetting. Similarly, the \emph{boredom} of the worker regarding the tasks evolves. For a worker, the boredom is equivalent to earning less money.
+Each worker is remunerated for his work; as all the tasks are considered to be equally important for the society, they all deliver the same total amount of money, which is distributed to the workers proportionally to their productivity.
+Every now and then, each worker is given the possibility to quit his task and choose another task, which he will do if he can get a better salary/boredom balance by switching to a new task. 
+
+
+\subsubsection*{Explanation of the model}
+The initial value for the productivity $P_{ij}$ of worker $i$ at task $j$ is generated randomly according to the equation
+\begin{equation}
+	P_{ij}(t_0) = \rnd{P_\mu}{P_\sigma}
+\end{equation}
+where $\rnd{\mu}{\sigma}$ means that the number is generated according to a normal distribution of mean $\mu$ and standard deviation $\sigma$.
+As a first task, a worker will choose the task where his productivity is highest.
+
+In order to describe the fact that some people intrinsically learn faster than other people and have more room for improvement, each worker $i$ is attributed a task-independent \emph{ability} $A_i$, which is time-independent and generated randomly according to
+\begin{equation}
+	A_{i} = \rnd{A_\mu}{A_\sigma}.
+\end{equation}
+
+The maximal productivity of worker $i$ at task $j$ is directly related to his initial productivity at this task and his ability:
+\begin{equation}
+	P_{ij}^\textrm{max} = A_i \cdot P_{ij}(t_0)
+\end{equation}
+The productivity evolves in time as a function of the learning factor $\lambda$ and of the forgetting factor $\kappa$, 
+\begin{equation}
+	P_{ij}(t+\Delta t) = \begin{cases}
+		P_{ij}(t) + (P_{ij}^\textrm{max}-P_{ij}(t)) \cdot \lambda \Delta t & \text{if worker $i$ is performing task $j$}\\
+		P_{ij}(t) - (P_{ij}(t)-P_{ij}(t_0)) \cdot \kappa \Delta t & \text{otherwise}\\
+		\end{cases}
+\end{equation}
+in an attempt to reproduce an exponential-like relaxation to the maximal productivity and the initial productivities. $\Delta t$ is the time step for the time evolution.
+
+The boredom $B_{ij}$ of worker $i$ at task $j$ is initially zero at time $t_0$. The maximal boredom $B_{ij}^\textrm{max}$ is generated randomly by the following formula:
+\begin{equation}
+	B_{ij}^\textrm{max} = \rnd{B_\mu}{B_\sigma}
+\end{equation}
+The evolution of the boredom evolves in a similar fashion as the productivity and depends on the parameters $\zeta$ and $\eta$ for the boredom increase and decrease, respectively:
+\begin{equation}
+	B_{ij}(t+\Delta t) = \begin{cases}
+		B_{ij}(t) + (B_{ij}^\textrm{max}-B_{ij}(t)) \cdot \zeta \Delta t & \text{if worker $i$ is performing task $j$}\\
+		B_{ij}(t) - B_{ij}(t) \cdot \eta \Delta t & \text{otherwise}\\
+		\end{cases}
+\end{equation}
+For a worker, boredom is equivalent to earning less money than granted by his productivity. The ``felt'' salary is given by the result of the substraction of the boredom $B_{ij}(t)$ at the current task from the earned money.
+
+The \emph{job offer frequency} $p_s$ is responsible for the occasional possibility given to the worker to change his task: at each time step, a worker has this choice if a random number distributed uniformly between $0$ and $1$ is smaller than $p_s \cdot \Delta t$.
+
+The results described above show that the PBM model is able to describe basic mechanisms of a society, which can lead to social inequalities. However, it considers each one of the workers as a homo economicus and neglects the interactions with his pairs. It also makes the crude approximation that the money is equivalent to social status, which is not totally correct in real life. 
+The PBM model also considers each one of the tasks to be equally important for the society, while in real life some taks are tremendously more important than other ones.
+
+The PBM model could be extended by the introduction of interaction between the individui, for example by introducing a market, where a worker sells his work to another individuum and not to the society. The application of man-made mechanisms such as social security benefits could also be investigated and their influence on social inequality examined.
